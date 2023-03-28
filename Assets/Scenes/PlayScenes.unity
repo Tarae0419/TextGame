@@ -324,7 +324,6 @@ GameObject:
   - component: {fileID: 167448620}
   - component: {fileID: 167448619}
   - component: {fileID: 167448621}
-  - component: {fileID: 167448622}
   m_Layer: 0
   m_Name: TextManager
   m_TagString: Untagged
@@ -344,9 +343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5623450fb207ed49851b3b4994d7689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Asset: {fileID: 4900000, guid: d65753d4bc2cc29498eaf4d8f28bed27, type: 3}
   TextDisplay: {fileID: 897026149}
   TypingSpeed: 0
-  TextArray: []
+  Page: 0
+  TextArray:
+  - 
 --- !u!4 &167448620
 Transform:
   m_ObjectHideFlags: 0
@@ -374,23 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c9702bde9d1a245b0f7b3a6849b928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &167448622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167448618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47839292409282c46a0fbf55bd231fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-    name: 
-    line: {x: 1, y: 5}
-    dialogues:
-    - {fileID: 0}
 --- !u!1 &641490013
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,8 +6,10 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Dialogue : MonoBehaviour
 {
+    public TextAsset Asset;
     public Text TextDisplay;
     public float TypingSpeed = 0.15f;
+    public int Page;
     [Tooltip("ด๋ป็")]
     public string[] TextArray;
 

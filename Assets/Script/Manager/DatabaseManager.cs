@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class DatabaseManager : MonoBehaviour
 {
     [SerializeField] const string TsvFile = "https://docs.google.com/spreadsheets/d/1Xvwqn3W-MGwuaBay69MfeC6PW_1HYlPBnxwep8bgZlU/edit?usp=sharing";
-    Item item;
+    public TextAsset Asset;
     void Awake()
     {
  
@@ -19,25 +19,38 @@ public class DatabaseManager : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequest.Get(TsvFile);
         yield return www.SendWebRequest();
-       Splitdata(www.downloadHandler.text);
+        Splitdata(Asset);
     }
 
-    void Splitdata(string TSVFile)
+    void Splitdata(TextAsset TSVFile)
     {
-        List<Dialogue> dialogueList = new List<Dialogue>();
-
-        string[] Row = TSVFile.Split("\n");
+        string[] Row = TSVFile.text.Split(new char[] { '\n' });
+        print(Row[0]);
         int RowSize = Row.Length;
-        int ColumnSize = Row[0].Split("\t").Length;
+        int ColumnSIze = Row[0].Split(',').Length;
+
 
         for(int i = 0; i < RowSize; i++)
         {
-            string[] Column = Row[i].Split("\t");
-            for(int j = 0; j < ColumnSize; j++)
+            string[] Column = Row[i].Split(',');
+            for (int j = 0; j < ColumnSIze; j++)
             {
-
+                print(Column[j]);
             }
         }
+           
+        
+    }
+
+    public Dialogue[] GetDialogue(int StartNum, int EndNum)
+    {
+        List<Dialogue> dialogueList = new List<Dialogue>();
+
+        for(int i = 0; i <= EndNum - StartNum; i++)
+        {
+            //dialogueList.Add();
+        }
+        return dialogueList.ToArray();
     }
 }
 
