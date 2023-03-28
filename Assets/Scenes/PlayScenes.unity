@@ -344,7 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5623450fb207ed49851b3b4994d7689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueAsset: {fileID: 0}
   TextDisplay: {fileID: 897026149}
   TypingSpeed: 0
   TextArray: []
@@ -375,7 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c9702bde9d1a245b0f7b3a6849b928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csv_FileName: gametext
 --- !u!114 &167448622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +389,8 @@ MonoBehaviour:
   dialogue:
     name: 
     line: {x: 1, y: 5}
-    dialogues: []
+    dialogues:
+    - {fileID: 0}
 --- !u!1 &641490013
 GameObject:
   m_ObjectHideFlags: 0

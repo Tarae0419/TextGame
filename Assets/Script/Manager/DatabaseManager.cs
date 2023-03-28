@@ -1,42 +1,43 @@
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class DatabaseManager : MonoBehaviour
 {
-    public static DatabaseManager instance;
-
-    [SerializeField] string csv_FileName;
-
-    Dictionary<int, Dialogue> dialogueDic = new Dictionary<int, Dialogue>();
-
-    public static bool isFinish = false;
-
+    [SerializeField] const string TsvFile = "https://docs.google.com/spreadsheets/d/1Xvwqn3W-MGwuaBay69MfeC6PW_1HYlPBnxwep8bgZlU/edit?usp=sharing";
+    Item item;
     void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-            DialogueParser theParser = GetComponent<DialogueParser>();
-            Dialogue[] dialogues = theParser.Parse(csv_FileName);
-            for(int i = 0;i < dialogues.Length; i++)
-            {
-                dialogueDic.Add(i + 1, dialogues[i]);
-            }
-            isFinish = true;
-        }
+ 
+        StartCoroutine(GetData());
     }
 
-
-    public Dialogue[] GetDialogue(int StartNum, int EndNum)
+    IEnumerator GetData()
     {
-        List<Dialogue> dialougeList = new List<Dialogue>();
+        UnityWebRequest www = UnityWebRequest.Get(TsvFile);
+        yield return www.SendWebRequest();
+       Splitdata(www.downloadHandler.text);
+    }
 
-        for(int i = 0; i <= EndNum - StartNum; i++)
+    void Splitdata(string TSVFile)
+    {
+        List<Dialogue> dialogueList = new List<Dialogue>();
+
+        string[] Row = TSVFile.Split("\n");
+        int RowSize = Row.Length;
+        int ColumnSize = Row[0].Split("\t").Length;
+
+        for(int i = 0; i < RowSize; i++)
         {
-            dialougeList.Add(dialogueDic[StartNum + i]);
-        }
+            string[] Column = Row[i].Split("\t");
+            for(int j = 0; j < ColumnSize; j++)
+            {
 
-        return dialougeList.ToArray();
+            }
+        }
     }
 }
+

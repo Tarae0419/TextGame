@@ -13,7 +13,7 @@ public class DialogueParser : MonoBehaviour
 
         for(int i = 1; i < data.Length;)
         {
-            string[] row = data[i].Split(new char[] { ',' });
+            string[] row = data[i].Split(new char[] { '\t' });
 
             Dialogue dialogue = new Dialogue();
 
@@ -23,10 +23,10 @@ public class DialogueParser : MonoBehaviour
             {
                 TextArrayList.Add(row[2]);
                 if (++i < data.Length)
-                    row = data[i].Split(new char[] { ',' });
+                    row = data[i].Split(new char[] { '\n' });
                 else
                     break;
-            } while (row[0].ToString() == "");
+            } while (row[1].ToString() == "");
 
             dialogue.TextArray = TextArrayList.ToArray();
 
