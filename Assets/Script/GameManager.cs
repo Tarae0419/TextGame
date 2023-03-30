@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     public Image InventoryPanel;
     public Image MapPanel;
     public Image StatPanel;
+    public Image TimerBar;
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
     public TextMeshProUGUI NameText;
     public Character Character;
     private bool TimeSet;
-    private float time;
+    private bool Timer;
+    private float UITime;
+    private float TimerTime;
     
     // Start is called before the first frame update
 
@@ -32,7 +36,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         SetCharacterStat();
@@ -41,9 +44,9 @@ public class GameManager : MonoBehaviour
         if (EnableInventoryPanel == true && TimeSet == true)
         {
 
-            time += Time.deltaTime * 1500f;
+            UITime += Time.deltaTime * 1500f;
             InventoryPanel.gameObject.SetActive(true);
-            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0,-500 + time); 
+            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0,-500 + UITime); 
             
             if (InventoryPanel.rectTransform.anchoredPosition.y >= 0)
             {
@@ -53,8 +56,8 @@ public class GameManager : MonoBehaviour
         }
         else if (EnableInventoryPanel == false && TimeSet == true)
         {
-            time += Time.deltaTime * 1500f;
-            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, 0 - time);
+            UITime += Time.deltaTime * 1500f;
+            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, 0 - UITime);
 
             if (InventoryPanel.rectTransform.anchoredPosition.y <= -500)
             {
@@ -63,7 +66,18 @@ public class GameManager : MonoBehaviour
             }
         }
         else
-            time = 0f;
+            UITime = 0f;
+
+        // set timer
+        if(Timer == true)
+        {
+            TimerTime += Time.deltaTime;
+            TimerBar.fillAmount = 1 - TimerTime / 30;
+            if(TimerBar.fillAmount == 0)
+            {
+                Timer = false;
+            }
+        }
     }
 
     //ItemUI ON/OFF
@@ -113,8 +127,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void OpenMap()
+    public void SetTimer()
     {
-
+        Timer = true;
     }
 }
