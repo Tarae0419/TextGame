@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Image InventoryUI;
-    public bool EnableInventory;
+    public Image InventoryPanel;
+    public Image MapPanel;
+    public Image StatPanel;
+    public bool EnableInventoryPanel;
+    public bool EnableMapPanel;
+    public bool EnableStatPanel;
+    public TextMeshProUGUI NameText;
+    public Character Character;
     private bool TimeSet;
     private float time;
     
@@ -14,39 +21,45 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        EnableInventory = false;
+        EnableInventoryPanel = false;
+        EnableMapPanel = false;
+        EnableStatPanel = false;
         TimeSet = false;
+        
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        SetCharacterStat();
+
         //display ItemUI
-        if (EnableInventory == true && TimeSet == true)
+        if (EnableInventoryPanel == true && TimeSet == true)
         {
+
             time += Time.deltaTime * 1500f;
-            InventoryUI.gameObject.SetActive(true);
-            InventoryUI.rectTransform.anchoredPosition = new Vector2(0,-500 + time); 
+            InventoryPanel.gameObject.SetActive(true);
+            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0,-500 + time); 
             
-            if (InventoryUI.rectTransform.anchoredPosition.y >= 0)
+            if (InventoryPanel.rectTransform.anchoredPosition.y >= 0)
             {
                 TimeSet = false;
-                InventoryUI.rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+                InventoryPanel.rectTransform.anchoredPosition = new Vector3(0, 0, 0);
             }       
         }
-        else if (EnableInventory == false && TimeSet == true)
+        else if (EnableInventoryPanel == false && TimeSet == true)
         {
             time += Time.deltaTime * 1500f;
-            InventoryUI.rectTransform.anchoredPosition = new Vector2(0, 0 - time);
+            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, 0 - time);
 
-            if (InventoryUI.rectTransform.anchoredPosition.y <= -500)
+            if (InventoryPanel.rectTransform.anchoredPosition.y <= -500)
             {
                 TimeSet = false;
-                InventoryUI.gameObject.SetActive(false);
+                InventoryPanel.gameObject.SetActive(false);
             }
         }
         else
@@ -54,17 +67,54 @@ public class GameManager : MonoBehaviour
     }
 
     //ItemUI ON/OFF
-    public void SetInventoryUI()
+    public void SetUI(int UINum)
     {
-        if (EnableInventory == false)
+        //set inventoryUI
+        if (EnableInventoryPanel == false && UINum == 1)
         {
-            EnableInventory = true;
+            EnableInventoryPanel = true;
             TimeSet = true; 
         }
-        else
+        else if(EnableInventoryPanel == true && UINum == 1)
         {
-            EnableInventory = false;
+            EnableInventoryPanel = false;
             TimeSet = true;
         }
+
+        //set mapUI(²Ú ´­·¶À»¶§? or ¹öÆ°?)
+        if (EnableMapPanel == false && UINum == 2)
+        {
+            MapPanel.gameObject.SetActive(true);
+            EnableMapPanel = true;
+        }
+        else if(EnableMapPanel == true && UINum == 2)
+        {
+            MapPanel.gameObject.SetActive(false);
+            EnableMapPanel = false;
+        }
+
+        //set CharacterStatUI
+        if (EnableStatPanel == false && UINum == 3)
+        {
+            StatPanel.gameObject.SetActive(true);
+            EnableStatPanel = true;
+        }
+        else if(EnableStatPanel == true && UINum == 3)
+        {
+            StatPanel.gameObject.SetActive(false);
+            EnableStatPanel = false;
+        }
+    }
+
+    public void SetCharacterStat()
+    {
+        NameText.text = Character.Name;
+        //other stat
+
+    }
+
+    public void OpenMap()
+    {
+
     }
 }
