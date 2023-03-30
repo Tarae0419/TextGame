@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ff5ae1d329ee47ae8a1ef9e344f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryPanel: {fileID: 0}
+  InventoryPanel: {fileID: 102517942}
   MapPanel: {fileID: 0}
-  StatPanel: {fileID: 0}
+  StatPanel: {fileID: 338237652}
   EnableInventoryPanel: 0
   EnableMapPanel: 0
   EnableStatPanel: 0
