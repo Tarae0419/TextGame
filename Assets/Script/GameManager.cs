@@ -11,12 +11,9 @@ public class GameManager : MonoBehaviour
     public Image MapPanel;
     public Image StatPanel;
     public Image TimerBar;
-    public Image CurrentLocation;
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
-    public TextMeshProUGUI NameText;
-    public Character Character;
     private bool TimeSet;
     private bool Timer;
     private float UITime;
@@ -38,10 +35,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        SetCharacterStat();
-
-
-        PlayerLocation(Character.CurrentMapIndex);
 
         //display ItemUI
         if (EnableInventoryPanel == true && TimeSet == true)
@@ -123,32 +116,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetCharacterStat()
-    {
-        NameText.text = Character.Name;
-        //other stat
-
-    }
-
     public void SetTimer()
     {
         Timer = true;
     }
-
-    // change player location in map
-    public void PlayerLocation(int CurrentMapIndex)
-    {
-        switch (CurrentMapIndex)
-        {
-            case 1: CurrentLocation.rectTransform.anchoredPosition = new Vector2(125, -50); break;
-            case 2: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, -50); break;
-            case 3: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 75); break;
-            case 4: CurrentLocation.rectTransform.anchoredPosition = new Vector2(05, 200); break;
-            case 5: CurrentLocation.rectTransform.anchoredPosition = new Vector2(-125, 200); break;
-            case 6: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 325); break;
-            default: break;
-        }
-    }
-
 
 }
