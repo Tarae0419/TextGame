@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public Image MapPanel;
     public Image StatPanel;
     public Image TimerBar;
+    public Image CurrentLocation;
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
@@ -20,8 +21,7 @@ public class GameManager : MonoBehaviour
     private bool Timer;
     private float UITime;
     private float TimerTime;
-    
-    // Start is called before the first frame update
+
 
     void Awake()
     {
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         EnableMapPanel = false;
         EnableStatPanel = false;
         TimeSet = false;
-        
+
     }
     void Start()
     {
@@ -40,19 +40,22 @@ public class GameManager : MonoBehaviour
     {
         SetCharacterStat();
 
+
+        PlayerLocation(Character.CurrentMapIndex);
+
         //display ItemUI
         if (EnableInventoryPanel == true && TimeSet == true)
         {
 
             UITime += Time.deltaTime * 1500f;
             InventoryPanel.gameObject.SetActive(true);
-            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0,-500 + UITime); 
-            
+            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, -500 + UITime);
+
             if (InventoryPanel.rectTransform.anchoredPosition.y >= 0)
             {
                 TimeSet = false;
                 InventoryPanel.rectTransform.anchoredPosition = new Vector3(0, 0, 0);
-            }       
+            }
         }
         else if (EnableInventoryPanel == false && TimeSet == true)
         {
@@ -69,11 +72,11 @@ public class GameManager : MonoBehaviour
             UITime = 0f;
 
         // set timer
-        if(Timer == true)
+        if (Timer == true)
         {
             TimerTime += Time.deltaTime;
             TimerBar.fillAmount = 1 - TimerTime / 30;
-            if(TimerBar.fillAmount == 0)
+            if (TimerBar.fillAmount == 0)
             {
                 Timer = false;
             }
@@ -87,9 +90,9 @@ public class GameManager : MonoBehaviour
         if (EnableInventoryPanel == false && UINum == 1)
         {
             EnableInventoryPanel = true;
-            TimeSet = true; 
+            TimeSet = true;
         }
-        else if(EnableInventoryPanel == true && UINum == 1)
+        else if (EnableInventoryPanel == true && UINum == 1)
         {
             EnableInventoryPanel = false;
             TimeSet = true;
@@ -101,7 +104,7 @@ public class GameManager : MonoBehaviour
             MapPanel.gameObject.SetActive(true);
             EnableMapPanel = true;
         }
-        else if(EnableMapPanel == true && UINum == 2)
+        else if (EnableMapPanel == true && UINum == 2)
         {
             MapPanel.gameObject.SetActive(false);
             EnableMapPanel = false;
@@ -113,7 +116,7 @@ public class GameManager : MonoBehaviour
             StatPanel.gameObject.SetActive(true);
             EnableStatPanel = true;
         }
-        else if(EnableStatPanel == true && UINum == 3)
+        else if (EnableStatPanel == true && UINum == 3)
         {
             StatPanel.gameObject.SetActive(false);
             EnableStatPanel = false;
@@ -131,4 +134,21 @@ public class GameManager : MonoBehaviour
     {
         Timer = true;
     }
+
+    // change player location in map
+    public void PlayerLocation(int CurrentMapIndex)
+    {
+        switch (CurrentMapIndex)
+        {
+            case 1: CurrentLocation.rectTransform.anchoredPosition = new Vector2(125, -50); break;
+            case 2: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, -50); break;
+            case 3: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 75); break;
+            case 4: CurrentLocation.rectTransform.anchoredPosition = new Vector2(05, 200); break;
+            case 5: CurrentLocation.rectTransform.anchoredPosition = new Vector2(-125, 200); break;
+            case 6: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 325); break;
+            default: break;
+        }
+    }
+
+
 }
