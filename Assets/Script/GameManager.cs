@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
+    public int GameTurn;
     private bool TimeSet;
     private bool Timer;
     private float UITime;
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
         if (Timer == true)
         {
             TimerTime += Time.deltaTime;
-            TimerBar.fillAmount = 1 - TimerTime / 30;
+            TimerBar.fillAmount = 1 - TimerTime / 10;
             if (TimerBar.fillAmount == 0)
             {
                 Timer = false;
@@ -121,4 +123,9 @@ public class GameManager : MonoBehaviour
         Timer = true;
     }
 
+    public void TurnIncrease()
+    {
+        //서버 시간 반영
+        GameTurn++;
+    }
 }

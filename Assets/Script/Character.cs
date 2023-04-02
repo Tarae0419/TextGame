@@ -30,7 +30,7 @@ public class Character : MonoBehaviour
     void Awake()
     {
         Name = "°­¾ÆÁö";
-        CurrentMapIndex = 1;
+        CurrentMapIndex = 3;
         HP = 100;
         SAN = 80;
         STR = 15;
@@ -48,7 +48,6 @@ public class Character : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         SetCharacterStat();
@@ -70,7 +69,7 @@ public class Character : MonoBehaviour
             case 1: CurrentLocation.rectTransform.anchoredPosition = new Vector2(125, -50); break;
             case 2: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, -50); break;
             case 3: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 75); break;
-            case 4: CurrentLocation.rectTransform.anchoredPosition = new Vector2(05, 200); break;
+            case 4: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 200); break;
             case 5: CurrentLocation.rectTransform.anchoredPosition = new Vector2(-125, 200); break;
             case 6: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 325); break;
             default: break;
