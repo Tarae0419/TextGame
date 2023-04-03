@@ -62,11 +62,36 @@ public class MapController : MonoBehaviour
     {
         if(Character.CurrentMapIndex == 1) // 맨끝(관람차, 회전목마 등)일 시 버튼 하나만 or
         {
-            //버튼 하나만 
+            //버튼 하나만 or x표시
+            FirstMap.text = MapName[Character.CurrentMapIndex];
+            SecondMap.text = "X";
+            ThirdMap.text = "X";
+        }
+        else if(Character.CurrentMapIndex == 4)
+        {
+            FirstMap.text = MapName[Character.CurrentMapIndex];
+            SecondMap.text = MapName[Character.CurrentMapIndex + 1];
+            ThirdMap.text = MapName[Character.CurrentMapIndex - 2];
+        }
+        else if(Character.CurrentMapIndex == 5 )
+        {
+            FirstMap.text = MapName[Character.CurrentMapIndex - 2];
+            SecondMap.text = "X";
+            ThirdMap.text = "X";
+        }
+        else if(Character.CurrentMapIndex == 6)
+        {
+            FirstMap.text = MapName[Character.CurrentMapIndex - 3];
+            SecondMap.text = "X";
+            ThirdMap.text = "X";
+        }
+        else
+        {
+            FirstMap.text = MapName[Character.CurrentMapIndex];
+            SecondMap.text = MapName[Character.CurrentMapIndex - 2];
+            ThirdMap.text = "X";
         }
         
-        FirstMap.text = MapName[Character.CurrentMapIndex];
-        SecondMap.text = MapName[Character.CurrentMapIndex - 2];
         MapButton.SetActive(true);
 
     }
