@@ -4,44 +4,35 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.U2D.Animation;
 
 public class Character : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public int CurrentMapIndex;
+
     public TextMeshProUGUI NameText;
     public TextMeshProUGUI HPText;
     public Image CurrentLocation;
-    public int HP;
-    private string Name;
-    private int SAN;
-    private int STR;
-    private int END;
-    private int CON;
-    private int DEX;
-    private int INT;
-    private int EDU;
-    private int INS;
-    private int CHA;
-    private int PROB;
+    public CharacterData Characterdata;
+    
     
 
     void Awake()
     {
-        Name = "강아지";
-        CurrentMapIndex = 3;
-        HP = 100;
-        SAN = 80;
-        STR = 15;
-        END = 3;
-        CON = 53;
-        DEX = 12;
-        INT = 24;
-        EDU = 21;
-        INS = 7;
-        CHA = 10;
-        PROB = 30;
+        Characterdata.Name = "강아지";
+        Characterdata.CurrentMapIndex = 3;
+        Characterdata.HP = 100;
+        Characterdata.SAN = 80;
+        Characterdata.STR = 15;
+        Characterdata.END = 3;
+        Characterdata.CON = 53;
+        Characterdata.DEX = 12;
+        Characterdata.INT = 24;
+        Characterdata.EDU = 21;
+        Characterdata.INS = 7;
+        Characterdata.CHA = 10;
+        Characterdata.PROB = 30;
 }
     void Start()
     {
@@ -51,13 +42,13 @@ public class Character : MonoBehaviour
     void Update()
     {
         SetCharacterStat();
-        PlayerLocation(CurrentMapIndex);
+        PlayerLocation(Characterdata.CurrentMapIndex);
     }
 
     public void SetCharacterStat()
     {
-        NameText.text = Name;
-        HPText.text = HP.ToString();
+        NameText.text = Characterdata.Name;
+        HPText.text = Characterdata.HP.ToString();
         //other stat
     }
 
@@ -77,3 +68,25 @@ public class Character : MonoBehaviour
     }
 
 }
+[System.Serializable]
+public class CharacterData
+{
+    public string Name;
+    public int HP;
+    public int SAN;
+    public int STR;
+    public int END;
+    public int CON;
+    public int DEX;
+    public int INT;
+    public int EDU;
+    public int INS;
+    public int CHA;
+    public int PROB;
+    public int CurrentMapIndex;
+
+
+
+
+}
+

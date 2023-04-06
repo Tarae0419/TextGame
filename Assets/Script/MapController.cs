@@ -7,7 +7,7 @@ using TMPro;
 
 public class MapController : MonoBehaviour
 {
-    public Character Character;
+    public CharacterData CharacterData;
     public TextMeshProUGUI FirstMap;
     public TextMeshProUGUI SecondMap;
     public TextMeshProUGUI ThirdMap;
@@ -46,11 +46,11 @@ public class MapController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         if (NextMap == 1) //front
         {
-            Character.CurrentMapIndex++;
+            CharacterData.CurrentMapIndex++;
         }
         else if (NextMap == 2) //back
         {
-            Character.CurrentMapIndex--;
+            CharacterData.CurrentMapIndex--;
         }
         else if(NextMap ==3 )
         {
@@ -64,47 +64,47 @@ public class MapController : MonoBehaviour
 
     public void SetButton()
     {
-        if(Character.CurrentMapIndex == 1) // 맨끝(관람차, 회전목마 등)일 시 버튼 하나만 or
+        if(CharacterData.CurrentMapIndex == 1) // 맨끝(관람차, 회전목마 등)일 시 버튼 하나만 or
         {
             //버튼 하나만 or x표시
-            FirstMap.text = MapName[Character.CurrentMapIndex];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
             SecondMap.text = "X";
             ThirdMap.text = "X";
         }
-        else if(Character.CurrentMapIndex == 3)
+        else if(CharacterData.CurrentMapIndex == 3)
         {
-            FirstMap.text = MapName[Character.CurrentMapIndex + 1];
-            SecondMap.text = MapName[Character.CurrentMapIndex + 4];
-            ThirdMap.text = MapName[Character.CurrentMapIndex - 1];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex + 1];
+            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 4];
+            ThirdMap.text = MapName[CharacterData.CurrentMapIndex - 1];
         }
-        else if(Character.CurrentMapIndex == 4)
+        else if(CharacterData.CurrentMapIndex == 4)
         {
-            FirstMap.text = MapName[Character.CurrentMapIndex];
-            SecondMap.text = MapName[Character.CurrentMapIndex + 3];
-            ThirdMap.text = MapName[Character.CurrentMapIndex - 2];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
+            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 3];
+            ThirdMap.text = MapName[CharacterData.CurrentMapIndex - 2];
         }
-        else if(Character.CurrentMapIndex == 5 )
+        else if(CharacterData.CurrentMapIndex == 5 )
         {
-            FirstMap.text = MapName[Character.CurrentMapIndex];
-            SecondMap.text = MapName[Character.CurrentMapIndex + 1];
-            ThirdMap.text = MapName[Character.CurrentMapIndex - 2];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
+            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 1];
+            ThirdMap.text = MapName[CharacterData.CurrentMapIndex - 2];
         }
-        else if(Character.CurrentMapIndex == 6)
+        else if(CharacterData.CurrentMapIndex == 6)
         {
-            FirstMap.text = MapName[Character.CurrentMapIndex - 3];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex - 3];
             SecondMap.text = "X";
             ThirdMap.text = "X";
         }
-        else if(Character.CurrentMapIndex == 8)
+        else if(CharacterData.CurrentMapIndex == 8)
         {
-            FirstMap.text = MapName[Character.CurrentMapIndex];
-            SecondMap.text = MapName[Character.CurrentMapIndex + 1];
-            ThirdMap.text = MapName[Character.CurrentMapIndex + 2];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
+            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 1];
+            ThirdMap.text = MapName[CharacterData.CurrentMapIndex + 2];
         }
         else
         {
-            FirstMap.text = MapName[Character.CurrentMapIndex];
-            SecondMap.text = MapName[Character.CurrentMapIndex - 2];
+            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
+            SecondMap.text = MapName[CharacterData.CurrentMapIndex - 2];
             ThirdMap.text = "X";
         }
 
