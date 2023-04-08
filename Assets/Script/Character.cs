@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     public TextMeshProUGUI HPText;
     public Image CurrentLocation;
     public CharacterData Characterdata;
+    public int PlayerId;
     
     
 
@@ -65,6 +66,11 @@ public class Character : MonoBehaviour
             case 6: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 325); break;
             default: break;
         }
+    }
+
+    public void GameStart(int id)
+    {
+        PlayerId = id;
     }
 
 }

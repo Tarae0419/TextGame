@@ -11,14 +11,31 @@ public class MapController : MonoBehaviour
     public TextMeshProUGUI FirstMap;
     public TextMeshProUGUI SecondMap;
     public TextMeshProUGUI ThirdMap;
-    public string[] MapName;
+    public TextMeshProUGUI FourthMap;
+    public string[,] MapName;
     public GameObject MapButton;
     public Image TimerBar;
+    public int CurRow;
+    public int CurColumn;
+    private int nextX1;
+    private int nextY1;
+    private int nextX2;
+    private int nextY2;
+    private int nextX3;
+    private int nextY3;
+    private int nextX4;
+    private int nextY4;
+
 
 
     private void Awake()
     {
-        MapName = new string[11] {"매표소", "기념품점", "대로", "광장", "매점", "회전목마", "관람차", "익스트림 어트렉션", "롤러코스터", "귀신의 집", "바이킹"};
+        MapName = new string[4, 6] { { "1","1","1","관람차","1","1"},
+                                     { "1","롤러코스터","1","매점","회전목마", "1"},
+                                     { "귀신의집", "익스트림 어트렉션","광장","광장","1","1"},
+                                     { "1","바이킹","1","대로","기념품점","매표소"} };
+        CurRow = 3;
+        CurColumn = 5;
     }
 
     void Start()
@@ -46,68 +63,61 @@ public class MapController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         if (NextMap == 1) //front
         {
+            CurRow = nextX1;
+            CurColumn = nextY1;
             CharacterData.CurrentMapIndex++;
         }
         else if (NextMap == 2) //back
         {
+            CurRow = nextX2;
+            CurColumn = nextY2;
             CharacterData.CurrentMapIndex--;
         }
         else if(NextMap ==3 )
         {
             //third map(현재 위치가 광장, 매점일 때)
+            CurRow = nextX3;
+            CurColumn = nextY3;
         }
         else
         {
             //Fourth map(현재 위치가 익스트림 어트렉션일 때)
+            CurRow = nextX4;
+            CurColumn = nextY4;
         }
     }
 
     public void SetButton()
     {
-        if(CharacterData.CurrentMapIndex == 1) // 맨끝(관람차, 회전목마 등)일 시 버튼 하나만 or
-        {
-            //버튼 하나만 or x표시
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
-            SecondMap.text = "X";
-            ThirdMap.text = "X";
-        }
-        else if(CharacterData.CurrentMapIndex == 3)
-        {
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex + 1];
-            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 4];
-            ThirdMap.text = MapName[CharacterData.CurrentMapIndex - 1];
-        }
-        else if(CharacterData.CurrentMapIndex == 4)
-        {
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
-            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 3];
-            ThirdMap.text = MapName[CharacterData.CurrentMapIndex - 2];
-        }
-        else if(CharacterData.CurrentMapIndex == 5 )
-        {
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
-            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 1];
-            ThirdMap.text = MapName[CharacterData.CurrentMapIndex - 2];
-        }
-        else if(CharacterData.CurrentMapIndex == 6)
-        {
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex - 3];
-            SecondMap.text = "X";
-            ThirdMap.text = "X";
-        }
-        else if(CharacterData.CurrentMapIndex == 8)
-        {
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
-            SecondMap.text = MapName[CharacterData.CurrentMapIndex + 1];
-            ThirdMap.text = MapName[CharacterData.CurrentMapIndex + 2];
-        }
-        else
-        {
-            FirstMap.text = MapName[CharacterData.CurrentMapIndex];
-            SecondMap.text = MapName[CharacterData.CurrentMapIndex - 2];
-            ThirdMap.text = "X";
-        }
+        int[] xDir = { -1, 0, 1, 0 };
+        int[] yDir = { 0, -1, 0, 1 };
+        int Count = 0;
 
+
+        for (int dir = 0; dir < 4; dir++)
+        {
+            int newX = CurRow + xDir[dir];
+            int newY = CurColumn + yDir[dir];
+
+            if ((newX >= 0 && newX < 4) && (newY >= 0 && newY < 6) && MapName[newX, newY] != "1")
+            {
+                switch (Count)
+                {
+                    case 0: FirstMap.text = MapName[newX, newY]; nextX1 = newX; nextY1 = newY; break;
+                    case 1: SecondMap.text = MapName[newX, newY]; nextX2 = newX; nextY2 = newY; break;
+                    case 2: ThirdMap.text = MapName[newX, newY]; nextX3 = newX; nextY3 = newY; break;
+                    case 3: FourthMap.text = MapName[newX, newY]; nextX4 = newX; nextY4 = newY; break;
+                }
+                
+                Count++;
+            }
+        }
+        if (CurRow == 2 && (CurColumn == 2 || CurColumn == 3))
+        {
+            CurColumn = 3;
+            SecondMap.text = MapName[nextX2, nextY2 -1];
+            nextY2 -= 1;
+        }
         SetButtonPosition();
         MapButton.SetActive(true);
 
@@ -123,4 +133,5 @@ public class MapController : MonoBehaviour
 
         //four buttons
     }
+
 }
