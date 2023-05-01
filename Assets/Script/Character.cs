@@ -8,9 +8,6 @@ using UnityEditor.U2D.Animation;
 
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-
     public TextMeshProUGUI NameText;
     public TextMeshProUGUI HPText;
     public Image CurrentLocation;
@@ -21,7 +18,19 @@ public class Character : MonoBehaviour
 
     void Awake()
     {
-
+        Characterdata.Name = "¾ÆÀú¾¾";
+        Characterdata.CurrentMapIndex = 0;
+        Characterdata.HP = 0;
+        Characterdata.SAN = 0;
+        Characterdata.STR = 0;
+        Characterdata.END = 0;
+        Characterdata.CON = 0;
+        Characterdata.DEX = 0;
+        Characterdata.INT = 0;
+        Characterdata.EDU = 0;
+        Characterdata.INS = 0;
+        Characterdata.CHA = 0;
+        Characterdata.PROB = 0;
     }
     void Start()
     {
@@ -78,9 +87,6 @@ public class CharacterData
     public int CHA;
     public int PROB;
     public int CurrentMapIndex;
-
-
-
 
 }
 
