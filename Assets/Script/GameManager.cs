@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Image MapPanel;
     public Image StatPanel;
     public Image TimerBar;
+    public Camera MainCamera;
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
@@ -32,7 +33,6 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
     }
 
     void Update()
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             UITime += Time.deltaTime * 1500f;
             InventoryPanel.gameObject.SetActive(true);
             InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, -500 + UITime);
-
+            
             if (InventoryPanel.rectTransform.anchoredPosition.y >= 0)
             {
                 TimeSet = false;
@@ -128,4 +128,6 @@ public class GameManager : MonoBehaviour
         //서버 시간 반영
         GameTurn++;
     }
+
+    
 }

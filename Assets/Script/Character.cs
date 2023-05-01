@@ -21,20 +21,8 @@ public class Character : MonoBehaviour
 
     void Awake()
     {
-        Characterdata.Name = "°­¾ÆÁö";
-        Characterdata.CurrentMapIndex = 3;
-        Characterdata.HP = 100;
-        Characterdata.SAN = 80;
-        Characterdata.STR = 15;
-        Characterdata.END = 3;
-        Characterdata.CON = 53;
-        Characterdata.DEX = 12;
-        Characterdata.INT = 24;
-        Characterdata.EDU = 21;
-        Characterdata.INS = 7;
-        Characterdata.CHA = 10;
-        Characterdata.PROB = 30;
-}
+
+    }
     void Start()
     {
         
