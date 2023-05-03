@@ -26,8 +26,6 @@ public class MapController : MonoBehaviour
     private int nextX4;
     private int nextY4;
 
-
-
     private void Awake()
     {
         MapName = new string[4, 6] { { "1","1","1","관람차","1","1"},
@@ -36,11 +34,6 @@ public class MapController : MonoBehaviour
                                      { "1","바이킹","1","대로","기념품점","매표소"} };
         CurRow = 3;
         CurColumn = 5;
-    }
-
-    void Start()
-    {
-        
     }
 
     void Update()
@@ -92,7 +85,6 @@ public class MapController : MonoBehaviour
         int[] xDir = { -1, 0, 1, 0 };
         int[] yDir = { 0, -1, 0, 1 };
         int Count = 0;
-
 
         for (int dir = 0; dir < 4; dir++)
         {

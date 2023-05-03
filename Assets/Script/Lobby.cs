@@ -8,7 +8,7 @@ public class Lobby : MonoBehaviour
     public GameObject MultiPanel;
     public GameObject CharacterPanel;
     public GameObject ErrorPanel;
-    private SelectCharacter SetChar;
+    public GameObject ExitPanel;
 
     void Start()
     {
@@ -28,13 +28,9 @@ public class Lobby : MonoBehaviour
     public void SetMultiPanel(int Select)
     {
         if(Select == 1)
-        {
             MultiPanel.gameObject.SetActive(true);
-        }
         else
-        {
             MultiPanel.gameObject.SetActive(false);
-        }
     }
     public void SetCharcterPanel(int Select)
     {
@@ -53,17 +49,21 @@ public class Lobby : MonoBehaviour
     public void SetErrorPanel(int Select)
     {
         if (Select == 1)
-        {
             ErrorPanel.gameObject.SetActive(true);
-        }
         else
-        {
             ErrorPanel.gameObject.SetActive(false);
-        }
     }
 
-    public void SelectCharacter(int CharNum)
+    public void SetExitPanel(int Select)
     {
-        SetChar.SetCharacter(CharNum);
+        if (Select == 1) 
+            ExitPanel.gameObject.SetActive(true);
+        else
+            ExitPanel.gameObject.SetActive(false);
+    }
+
+    public void test(GameObject a, int sum)
+    {
+        a.gameObject.SetActive(false);
     }
 }

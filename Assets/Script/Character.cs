@@ -13,30 +13,13 @@ public class Character : MonoBehaviour
     public Image CurrentLocation;
     public CharacterData Characterdata;
     public int PlayerId;
-    
-    
 
     void Awake()
     {
-        Characterdata.Name = "아저씨";
-        Characterdata.CurrentMapIndex = 0;
-        Characterdata.HP = 0;
-        Characterdata.SAN = 0;
-        Characterdata.STR = 0;
-        Characterdata.END = 0;
-        Characterdata.CON = 0;
-        Characterdata.DEX = 0;
-        Characterdata.INT = 0;
-        Characterdata.EDU = 0;
-        Characterdata.INS = 0;
-        Characterdata.CHA = 0;
-        Characterdata.PROB = 0;
+        GameStart();
+        Item item = gameObject.GetComponent<Item>();
+        item.AddItem("대학원입학지원서");
     }
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         SetCharacterStat();
@@ -65,11 +48,21 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void GameStart(int id)
+    public void GameStart()
     {
-        PlayerId = id;
+        //inject data
+        GameObject LobbyData = GameObject.Find("LobbyData");
+        if (LobbyData == null)
+        {
+            Debug.Log("ERROR");
+        }
+        else
+        {
+            LobbyData Data = LobbyData.GetComponent<LobbyData>();
+            Characterdata = Data.Characterdata;
+        }
+        Destroy(LobbyData);
     }
-
 }
 [System.Serializable]
 public class CharacterData
@@ -87,6 +80,6 @@ public class CharacterData
     public int CHA;
     public int PROB;
     public int CurrentMapIndex;
-
+    
 }
 
