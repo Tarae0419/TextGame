@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
     void Update()
     {
         SetCharacterStat();
-        PlayerLocation(Characterdata.CurrentMapIndex);
+        PlayerLocation(Characterdata.CurrentMapName);
     }
 
     public void SetCharacterStat()
@@ -34,17 +34,17 @@ public class Character : MonoBehaviour
     }
 
     // change player location in map
-    public void PlayerLocation(int CurrentMapIndex)
+    public void PlayerLocation(string CurrentMapName)
     {
-        switch (CurrentMapIndex)
+        switch (CurrentMapName)
         {
-            case 1: CurrentLocation.rectTransform.anchoredPosition = new Vector2(125, -50); break;
+            /*case 1: CurrentLocation.rectTransform.anchoredPosition = new Vector2(125, -50); break;
             case 2: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, -50); break;
             case 3: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 75); break;
             case 4: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 200); break;
             case 5: CurrentLocation.rectTransform.anchoredPosition = new Vector2(-125, 200); break;
             case 6: CurrentLocation.rectTransform.anchoredPosition = new Vector2(0, 325); break;
-            default: break;
+            default: break;*/
         }
     }
 
@@ -79,7 +79,7 @@ public class CharacterData
     public int INS;
     public int CHA;
     public int PROB;
-    public int CurrentMapIndex;
+    public string CurrentMapName;
     
 }
 

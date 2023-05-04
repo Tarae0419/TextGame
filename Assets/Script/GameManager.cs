@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviour
         if (EnableInventoryPanel == true && TimeSet == true)
         {
 
-            UITime += Time.deltaTime * 4500f;
+            UITime += Time.deltaTime * 1500f;
             InventoryPanel.gameObject.SetActive(true);
-            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, -1300 + UITime);
+            InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, -400 + UITime);
             
             if (InventoryPanel.rectTransform.anchoredPosition.y >= 0)
             {
@@ -54,10 +54,10 @@ public class GameManager : MonoBehaviour
         }
         else if (EnableInventoryPanel == false && TimeSet == true)
         {
-            UITime += Time.deltaTime * 4500f;
+            UITime += Time.deltaTime * 1500f;
             InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, 0 - UITime);
 
-            if (InventoryPanel.rectTransform.anchoredPosition.y <= -1300)
+            if (InventoryPanel.rectTransform.anchoredPosition.y <= -400)
             {
                 TimeSet = false;
                 InventoryPanel.gameObject.SetActive(false);

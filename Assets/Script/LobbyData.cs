@@ -8,22 +8,11 @@ public class LobbyData : MonoBehaviour
 {
     public CharacterData Characterdata;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void SetCharacter(int Select)
     {
         if (Select == 1)
         {
             Characterdata.Name = "아이 엄마";
-            Characterdata.CurrentMapIndex = 3;
             Characterdata.HP = 100;
             Characterdata.SAN = 80;
             Characterdata.STR = 15;
@@ -39,7 +28,6 @@ public class LobbyData : MonoBehaviour
         else if (Select == 2)
         {
             Characterdata.Name = "관리인";
-            Characterdata.CurrentMapIndex = 3;
             Characterdata.HP = 100;
             Characterdata.SAN = 80;
             Characterdata.STR = 15;
@@ -54,8 +42,7 @@ public class LobbyData : MonoBehaviour
         }
         else if (Select == 3)
         {
-            Characterdata.Name = "인형 알바";
-            Characterdata.CurrentMapIndex = 3;
+            Characterdata.Name = "인형 탈 알바";
             Characterdata.HP = 100;
             Characterdata.SAN = 80;
             Characterdata.STR = 15;
@@ -71,7 +58,6 @@ public class LobbyData : MonoBehaviour
         else if (Select == 4)
         {
             Characterdata.Name = "강아지";
-            Characterdata.CurrentMapIndex = 3;
             Characterdata.HP = 100;
             Characterdata.SAN = 80;
             Characterdata.STR = 15;

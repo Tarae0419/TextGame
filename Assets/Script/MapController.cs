@@ -17,6 +17,7 @@ public class MapController : MonoBehaviour
     public Image TimerBar;
     public int CurRow;
     public int CurColumn;
+    private string CurrentMapName;
     private int nextX1;
     private int nextY1;
     private int nextX2;
@@ -58,13 +59,11 @@ public class MapController : MonoBehaviour
         {
             CurRow = nextX1;
             CurColumn = nextY1;
-            CharacterData.CurrentMapIndex++;
         }
         else if (NextMap == 2) //back
         {
             CurRow = nextX2;
             CurColumn = nextY2;
-            CharacterData.CurrentMapIndex--;
         }
         else if(NextMap ==3 )
         {
@@ -100,7 +99,6 @@ public class MapController : MonoBehaviour
                     case 2: ThirdMap.text = MapName[newX, newY]; nextX3 = newX; nextY3 = newY; break;
                     case 3: FourthMap.text = MapName[newX, newY]; nextX4 = newX; nextY4 = newY; break;
                 }
-                
                 Count++;
             }
         }
@@ -110,6 +108,7 @@ public class MapController : MonoBehaviour
             SecondMap.text = MapName[nextX2, nextY2 -1];
             nextY2 -= 1;
         }
+        CharacterData.CurrentMapName = MapName[CurRow, CurColumn];
         SetButtonPosition();
         MapButton.SetActive(true);
 
