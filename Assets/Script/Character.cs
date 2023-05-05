@@ -79,7 +79,6 @@ public class CharacterData
     public int INS;
     public int CHA;
     public int PROB;
-    public string CurrentMapName;
-    
+    public string CurrentMapName; 
 }
 

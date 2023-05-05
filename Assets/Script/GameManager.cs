@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         if (Timer == true)
         {
             TimerTime += Time.deltaTime;
-            TimerBar.fillAmount = 1 - TimerTime / 10;
+            TimerBar.fillAmount = 1 - TimerTime / 2;
             if (TimerBar.fillAmount == 0)
             {
                 Timer = false;

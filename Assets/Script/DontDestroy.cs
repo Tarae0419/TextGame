@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,6 @@ public class DontDestroy : MonoBehaviour
     }
     public void NextScenes()
     {
-        SceneManager.LoadScene("TextScene");
+        LoadingSceneController.LoadScene("TextScene");
     }
 }

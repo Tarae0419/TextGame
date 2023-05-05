@@ -14,10 +14,12 @@ public class MapController : MonoBehaviour
     public TextMeshProUGUI FourthMap;
     public string[,] MapName;
     public GameObject MapButton;
+    public GameObject MapCountManager;
+    public MapCount Mapcount;
     public Image TimerBar;
     public int CurRow;
     public int CurColumn;
-    private string CurrentMapName;
+    public string CurrentMapName;
     private int nextX1;
     private int nextY1;
     private int nextX2;
@@ -35,6 +37,7 @@ public class MapController : MonoBehaviour
                                      { "1","바이킹","1","대로","기념품점","매표소"} };
         CurRow = 3;
         CurColumn = 5;
+        Mapcount = MapCountManager.GetComponent<MapCount>();
     }
 
     void Update()
@@ -51,32 +54,34 @@ public class MapController : MonoBehaviour
         StartCoroutine(ChangeMap(NextMap));
     }
 
-
     IEnumerator ChangeMap(int NextMap)
     {
         yield return new WaitForSeconds(5f);
-        if (NextMap == 1) //front
+        if (NextMap == 1) 
         {
             CurRow = nextX1;
             CurColumn = nextY1;
         }
-        else if (NextMap == 2) //back
+        else if (NextMap == 2) 
         {
             CurRow = nextX2;
             CurColumn = nextY2;
         }
         else if(NextMap ==3 )
-        {
-            //third map(현재 위치가 광장, 매점일 때)
+        {       
             CurRow = nextX3;
             CurColumn = nextY3;
         }
         else
         {
-            //Fourth map(현재 위치가 익스트림 어트렉션일 때)
             CurRow = nextX4;
             CurColumn = nextY4;
         }
+        Mapcount.IncreaseMapCount(CharacterData.CurrentMapName); //increase map incount
+        TimerBar.fillAmount = 1;
+        MapButton.SetActive(false);
+
+
     }
 
     public void SetButton()
