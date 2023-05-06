@@ -10,16 +10,6 @@ public class Lobby : MonoBehaviour
     public GameObject ErrorPanel;
     public GameObject ExitPanel;
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void ExitGame()
     {
         Application.Quit();

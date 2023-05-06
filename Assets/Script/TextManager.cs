@@ -10,6 +10,11 @@ public class TextManager : MonoBehaviour
 {
     private string[] TextData;
     public TextMeshProUGUI StoryText;
+    public GameObject FirstButton;
+    public GameObject SecondButton;
+    public GameObject ThirdButton;
+    public GameObject FourthButton;
+    public GameManager GameManager;
     public bool isDialogEnd;
     public float Typingspeed;
     public int index;
@@ -18,35 +23,51 @@ public class TextManager : MonoBehaviour
     public int DialogLength;
     private string DialogData;
     private string SText;
+    private string SheetRange;
+    
 
     private void Awake()
     {
         index = 0;
         Typingspeed = 0.05f;
-        URL = "https://docs.google.com/spreadsheets/d/1Xvwqn3W-MGwuaBay69MfeC6PW_1HYlPBnxwep8bgZlU/export?format=tsv";
-        StartCoroutine(DownloadScript());
+        SheetRange =  "A1:C8";
         
+        StartCoroutine(TextEffect());
     }
 
     IEnumerator DownloadScript()
     {
+        URL = "https://docs.google.com/spreadsheets/d/1Xvwqn3W-MGwuaBay69MfeC6PW_1HYlPBnxwep8bgZlU/export?format=tsv&range=" + SheetRange;
+        
         UnityWebRequest www = UnityWebRequest.Get(URL);
         yield return www.SendWebRequest();
 
         DialogData = www.downloadHandler.text;
+        print(DialogData);
         this.Dialog = Parse();
-        StartCoroutine(TextEffect());  
     }
 
     IEnumerator TextEffect()
     {
+        yield return DownloadScript();
         SText = "";
         for (int i = 0; i < DialogLength; i++)
         {
             string a = this.Dialog[i];
             //StartCoroutine(Typing(a));
             yield return Typing(a);
-        }  
+        }
+        yield return new WaitForSeconds(0.5f);
+        GameManager.SetChoiceButton();
+    }
+
+    public void SetChoiceText()
+    {
+        TextMeshProUGUI FirstText = FirstButton.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI SecondText = SecondButton.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI ThirdText = ThirdButton.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI FourthText = FourthButton.GetComponent<TextMeshProUGUI>();
+
     }
 
     IEnumerator Typing(string text)
@@ -61,13 +82,11 @@ public class TextManager : MonoBehaviour
             CurrentChar++;
             yield return new WaitForSeconds(Typingspeed);
 
-
             if (CurrentChar >= CharLength)
             {
                 isDialogEnd = true;
                 SText += '\n';
                 yield break;
-
             }
         }
     }

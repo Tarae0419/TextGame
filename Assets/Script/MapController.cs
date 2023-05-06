@@ -7,19 +7,20 @@ using TMPro;
 
 public class MapController : MonoBehaviour
 {
-    public CharacterData CharacterData;
+    public GameObject MapButton;
+    public GameObject MapCountManager;
+    public GameObject Player;
+    public GameManager gameManager;
+    private CharacterData PlayerData;
     public TextMeshProUGUI FirstMap;
     public TextMeshProUGUI SecondMap;
     public TextMeshProUGUI ThirdMap;
     public TextMeshProUGUI FourthMap;
-    public string[,] MapName;
-    public GameObject MapButton;
-    public GameObject MapCountManager;
     public MapCount Mapcount;
     public Image TimerBar;
+    public string[,] MapName;
     public int CurRow;
     public int CurColumn;
-    public string CurrentMapName;
     private int nextX1;
     private int nextY1;
     private int nextX2;
@@ -31,13 +32,15 @@ public class MapController : MonoBehaviour
 
     private void Awake()
     {
-        MapName = new string[4, 6] { { "1","1","1","°ü¶÷Â÷","1","1"},
-                                     { "1","·Ñ·¯ÄÚ½ºÅÍ","1","¸ÅÁ¡","È¸Àü¸ñ¸¶", "1"},
-                                     { "±Í½ÅÀÇÁı", "ÀÍ½ºÆ®¸² ¾îÆ®·º¼Ç","±¤Àå","±¤Àå","1","1"},
-                                     { "1","¹ÙÀÌÅ·","1","´ë·Î","±â³äÇ°Á¡","¸ÅÇ¥¼Ò"} };
+        MapName = new string[4, 6] { { "1","1","1","ê´€ëŒì°¨","1","1"},
+                                     { "1","ë¡¤ëŸ¬ì½”ìŠ¤í„°","1","ë§¤ì ","íšŒì „ëª©ë§ˆ", "1"},
+                                     { "ê±°ìš¸ì˜ ë¯¸ë¡œ", "ìµìŠ¤íŠ¸ë¦¼ ì–´íŠ¸ë ‰ì…˜","ê´‘ì¥","ê´‘ì¥","1","1"},
+                                     { "1","ë°”ì´í‚¹","1","ëŒ€ë¡œ","ê¸°ë…í’ˆì ","ë§¤í‘œì†Œ"} };
         CurRow = 3;
         CurColumn = 5;
         Mapcount = MapCountManager.GetComponent<MapCount>();
+        PlayerData = Player.GetComponent<Character>().Characterdata;
+        gameManager = GetComponent<GameManager>();
     }
 
     void Update()
@@ -56,7 +59,7 @@ public class MapController : MonoBehaviour
 
     IEnumerator ChangeMap(int NextMap)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         if (NextMap == 1) 
         {
             CurRow = nextX1;
@@ -77,11 +80,11 @@ public class MapController : MonoBehaviour
             CurRow = nextX4;
             CurColumn = nextY4;
         }
-        Mapcount.IncreaseMapCount(CharacterData.CurrentMapName); //increase map incount
+        PlayerData.CurrentMapName = MapName[CurRow, CurColumn];
+        Mapcount.IncreaseMapCount(PlayerData.CurrentMapName); //increase map incount
+        gameManager.TurnIncrease();
         TimerBar.fillAmount = 1;
         MapButton.SetActive(false);
-
-
     }
 
     public void SetButton()
@@ -113,7 +116,6 @@ public class MapController : MonoBehaviour
             SecondMap.text = MapName[nextX2, nextY2 -1];
             nextY2 -= 1;
         }
-        CharacterData.CurrentMapName = MapName[CurRow, CurColumn];
         SetButtonPosition();
         MapButton.SetActive(true);
 

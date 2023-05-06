@@ -12,12 +12,13 @@ public class Character : MonoBehaviour
     public TextMeshProUGUI HPText;
     public Image CurrentLocation;
     public CharacterData Characterdata;
+    public Item item;
     public int PlayerId;
 
     void Awake()
     {
         GameStart();
-        Item item = gameObject.GetComponent<Item>();
+        item = GetComponent<Item>();
         item.AddItem("대학원입학지원서");
     }
     void Update()

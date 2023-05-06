@@ -9,16 +9,7 @@ public class MapCount : MonoBehaviour
 
     private void Awake()
     {
-        MapInCount = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
+        MapInCount = new int[11] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     }
 
     public void IncreaseMapCount(string MapName)
@@ -34,7 +25,7 @@ public class MapCount : MonoBehaviour
             case "관람차": MapInCount[6]++; break;
             case "익스트림 어트렉션": MapInCount[7]++; break;
             case "롤러코스터": MapInCount[8]++; break;
-            case "귀신의집": MapInCount[9]++; break;
+            case "거울의 미로": MapInCount[9]++; break;
             case "바이킹": MapInCount[10]++; break;
         }
     }

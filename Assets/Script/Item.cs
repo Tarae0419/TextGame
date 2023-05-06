@@ -22,7 +22,6 @@ public class Item : MonoBehaviour
         ColumnCount = 0;
     }
 
-
     void Start()
     {
         AddItem("±ÇÃÑ");
@@ -35,11 +34,6 @@ public class Item : MonoBehaviour
         AddItem("¹°"); 
         AddItem("ÈÞÁö");
 
-    }
-
-    void Update()
-    {
-        
     }
 
     public void AddItem(string ItemName)

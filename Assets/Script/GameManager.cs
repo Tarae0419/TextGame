@@ -8,11 +8,13 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public Image ChoicePanel; 
     public Image InventoryPanel;
     public Image MapPanel;
     public Image StatPanel;
     public Image TimerBar;
     public Camera MainCamera;
+    public TextManager TMG;
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
@@ -22,22 +24,17 @@ public class GameManager : MonoBehaviour
     private float UITime;
     private float TimerTime;
 
-
     void Awake()
     {
+        TMG = GetComponent<TextManager>();
         EnableInventoryPanel = false;
         EnableMapPanel = false;
         EnableStatPanel = false;
         TimeSet = false;
-
-    }
-    void Start()
-    {
     }
 
     void Update()
     {
-
         //display ItemUI
         if (EnableInventoryPanel == true && TimeSet == true)
         {
@@ -129,5 +126,9 @@ public class GameManager : MonoBehaviour
         GameTurn++;
     }
 
-    
+    public void SetChoiceButton()
+    {
+        TMG.SetChoiceText();
+        ChoicePanel.gameObject.SetActive(true);
+    }
 }

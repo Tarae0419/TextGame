@@ -24,6 +24,7 @@ public class LobbyData : MonoBehaviour
             Characterdata.INS = 7;
             Characterdata.CHA = 10;
             Characterdata.PROB = 30;
+            Characterdata.CurrentMapName = "매표소";
         }
         else if (Select == 2)
         {
@@ -39,6 +40,7 @@ public class LobbyData : MonoBehaviour
             Characterdata.INS = 7;
             Characterdata.CHA = 10;
             Characterdata.PROB = 30;
+            Characterdata.CurrentMapName = "매표소";
         }
         else if (Select == 3)
         {
@@ -54,6 +56,7 @@ public class LobbyData : MonoBehaviour
             Characterdata.INS = 7;
             Characterdata.CHA = 10;
             Characterdata.PROB = 30;
+            Characterdata.CurrentMapName = "매표소";
         }
         else if (Select == 4)
         {
@@ -69,6 +72,7 @@ public class LobbyData : MonoBehaviour
             Characterdata.INS = 7;
             Characterdata.CHA = 10;
             Characterdata.PROB = 30;
+            Characterdata.CurrentMapName = "매표소";
         }
     }
 }
