@@ -8,30 +8,16 @@ using UnityEditor.U2D.Animation;
 
 public class Character : MonoBehaviour
 {
-    public TextMeshProUGUI NameText;
-    public TextMeshProUGUI HPText;
     public Image CurrentLocation;
     public CharacterData Characterdata;
-    public Item item;
-    public int PlayerId;
 
     void Awake()
     {
         GameStart();
-        item = GetComponent<Item>();
-        item.AddItem("대학원입학지원서");
     }
     void Update()
     {
-        SetCharacterStat();
         PlayerLocation(Characterdata.CurrentMapName);
-    }
-
-    public void SetCharacterStat()
-    {
-        NameText.text = Characterdata.Name;
-        HPText.text = Characterdata.HP.ToString();
-        //other stat
     }
 
     // change player location in map

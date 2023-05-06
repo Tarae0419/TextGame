@@ -33,7 +33,6 @@ public class Item : MonoBehaviour
         AddItem("¾ç³äÄ¡Å²");
         AddItem("¹°"); 
         AddItem("ÈÞÁö");
-
     }
 
     public void AddItem(string ItemName)

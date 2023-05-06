@@ -1677,8 +1677,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1478646025}
-        m_TargetAssemblyTypeName: LobbyData, Assembly-CSharp
-        m_MethodName: SetCharacter
+        m_TargetAssemblyTypeName: DataController, Assembly-CSharp
+        m_MethodName: SetCharacterData
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3746,6 +3746,10 @@ GameObject:
   - component: {fileID: 1478646023}
   - component: {fileID: 1478646024}
   - component: {fileID: 1478646025}
+  - component: {fileID: 1478646026}
+  - component: {fileID: 1478646029}
+  - component: {fileID: 1478646028}
+  - component: {fileID: 1478646027}
   m_Layer: 0
   m_Name: LobbyData
   m_TagString: Untagged
@@ -3789,7 +3793,98 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478646021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c4dca17c6a0f34687a39aacd5d73ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 75d00227f5261d74b93e113982f7faed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterData: {fileID: 0}
+--- !u!114 &1478646026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478646021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eba8310dab510db4c935b0189306ab8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Characterdata:
+    Name: 
+    HP: 0
+    SAN: 0
+    STR: 0
+    END: 0
+    CON: 0
+    DEX: 0
+    INT: 0
+    EDU: 0
+    INS: 0
+    CHA: 0
+    PROB: 0
+    CurrentMapName: 
+--- !u!114 &1478646027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478646021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10277daf940732046b1c03d0cd67a4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Characterdata:
+    Name: 
+    HP: 0
+    SAN: 0
+    STR: 0
+    END: 0
+    CON: 0
+    DEX: 0
+    INT: 0
+    EDU: 0
+    INS: 0
+    CHA: 0
+    PROB: 0
+    CurrentMapName: 
+--- !u!114 &1478646028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478646021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8850f0eb282d74cb47f75a4efb53c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Characterdata:
+    Name: 
+    HP: 0
+    SAN: 0
+    STR: 0
+    END: 0
+    CON: 0
+    DEX: 0
+    INT: 0
+    EDU: 0
+    INS: 0
+    CHA: 0
+    PROB: 0
+    CurrentMapName: 
+--- !u!114 &1478646029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478646021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb05c0e3a382d74db6341de22dcc9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Characterdata:
