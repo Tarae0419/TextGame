@@ -80,11 +80,14 @@ public class MapController : MonoBehaviour
             CurRow = nextX4;
             CurColumn = nextY4;
         }
+        
+        MapButton.SetActive(false);
+        TimerBar.fillAmount = 1;
         PlayerData.CurrentMapName = MapName[CurRow, CurColumn];
         Mapcount.IncreaseMapCount(PlayerData.CurrentMapName); //increase map incount
         gameManager.TurnIncrease();
-        TimerBar.fillAmount = 1;
-        MapButton.SetActive(false);
+        ResetButtonText();
+        // start next?
     }
 
     public void SetButton()
@@ -113,7 +116,7 @@ public class MapController : MonoBehaviour
         if (CurRow == 2 && (CurColumn == 2 || CurColumn == 3))
         {
             CurColumn = 3;
-            SecondMap.text = MapName[nextX2, nextY2 -1];
+            SecondMap.text = MapName[nextX2, nextY2 - 1];
             nextY2 -= 1;
         }
         SetButtonPosition();
@@ -130,6 +133,14 @@ public class MapController : MonoBehaviour
         //three buttons
 
         //four buttons
+    }
+
+    public void ResetButtonText()
+    {
+        FirstMap.text = "";
+        SecondMap.text = "";
+        ThirdMap.text = "";
+        FourthMap.text = "";
     }
 
 }

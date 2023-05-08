@@ -17,7 +17,6 @@ public class TextManager : MonoBehaviour
     public GameManager GameManager;
     public bool isDialogEnd;
     public float Typingspeed;
-    public int index;
     private string URL;
     public List<string> Dialog;
     public int DialogLength;
@@ -28,7 +27,6 @@ public class TextManager : MonoBehaviour
 
     private void Awake()
     {
-        index = 0;
         Typingspeed = 0.05f;
         SheetRange =  "A1:C8";
         
