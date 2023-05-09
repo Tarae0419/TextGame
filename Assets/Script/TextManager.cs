@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class TextManager : MonoBehaviour
 {
@@ -15,43 +13,26 @@ public class TextManager : MonoBehaviour
     public GameObject ThirdButton;
     public GameObject FourthButton;
     public GameManager GameManager;
+    public DataParsing GameData;
     public bool isDialogEnd;
     public float Typingspeed;
-    private string URL;
-    public List<string> Dialog;
-    public int DialogLength;
-    private string DialogData;
     private string SText;
-    private string SheetRange;
+
     
 
     private void Awake()
     {
+        GameData = GameObject.Find("TextData").GetComponent<DataParsing>();
         Typingspeed = 0.05f;
-        SheetRange =  "A1:C8";
-        
         StartCoroutine(TextEffect());
-    }
-
-    IEnumerator DownloadScript()
-    {
-        URL = "https://docs.google.com/spreadsheets/d/1Xvwqn3W-MGwuaBay69MfeC6PW_1HYlPBnxwep8bgZlU/export?format=tsv&range=" + SheetRange;
-        
-        UnityWebRequest www = UnityWebRequest.Get(URL);
-        yield return www.SendWebRequest();
-
-        DialogData = www.downloadHandler.text;
-        print(DialogData);
-        this.Dialog = Parse();
     }
 
     IEnumerator TextEffect()
     {
-        yield return DownloadScript();
         SText = "";
-        for (int i = 0; i < DialogLength; i++)
+        for (int i = 0; i < GameData.DialogLength; i++)
         {
-            string a = this.Dialog[i];
+            string a = GameData.DialogList[i];
             //StartCoroutine(Typing(a));
             yield return Typing(a);
         }
@@ -65,7 +46,6 @@ public class TextManager : MonoBehaviour
         TextMeshProUGUI SecondText = SecondButton.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI ThirdText = ThirdButton.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI FourthText = FourthButton.GetComponent<TextMeshProUGUI>();
-
     }
 
     IEnumerator Typing(string text)
@@ -89,27 +69,4 @@ public class TextManager : MonoBehaviour
         }
     }
 
-    public List<string> Parse()
-    {
-        DialogLength = 0;
-        List<string> context = new List<string>();
-        string[] data = DialogData.Split(new char[] { '\n' });
-
-        for(int i = 1; i <data.Length;)
-        {
-            string[] row = data[i].Split(new char[] { '\t' });
-            
-            do 
-            {
-                context.Add(row[2]);
-                DialogLength++;
-                if (++i < data.Length)
-                {
-                    row = data[i].Split(new char[] { '\t' });
-                }
-            } while (row[2].ToString() == "");
-        }
-
-        return context;
-    }
 }

@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour
     public Image TimerBar;
     public Camera MainCamera;
     public TextManager TMG;
+    [HideInInspector]
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
     public int GameTurn;
+    public int Chapter;
     private bool TimeSet;
     private bool Timer;
     private float UITime;
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
         EnableMapPanel = false;
         EnableStatPanel = false;
         TimeSet = false;
+        GameTurn = 1;
+        Chapter = 1;
+
     }
 
     void Update()

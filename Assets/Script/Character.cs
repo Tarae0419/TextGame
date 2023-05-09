@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.U2D.Animation;
 
 public class Character : MonoBehaviour
 {
