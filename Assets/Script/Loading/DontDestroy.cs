@@ -6,12 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class DontDestroy : MonoBehaviour
 {
-    private void Awake()
+    private static DontDestroy instance = null;
+
+    void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-    public void NextScenes()
-    {
-        LoadingSceneController.LoadScene("TextScene");
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

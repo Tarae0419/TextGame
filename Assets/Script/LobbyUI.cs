@@ -56,4 +56,8 @@ public class LobbyUI : MonoBehaviour
     {
         a.gameObject.SetActive(false);
     }
+    public void NextScenes()
+    {
+        LoadingSceneController.LoadScene("TextScene");
+    }
 }
