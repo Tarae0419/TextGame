@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TextManager : MonoBehaviour
+public class TextController : MonoBehaviour
 {
     private string[] TextData;
     public TextMeshProUGUI StoryText;
@@ -13,28 +13,40 @@ public class TextManager : MonoBehaviour
     public GameObject ThirdButton;
     public GameObject FourthButton;
     public GameManager GameManager;
-    public DataParsing GameData;
+    public TextData GameData;
     public bool isDialogEnd;
     public float Typingspeed;
     private string SText;
+    private int CurTextNum;
+    private int CurChoiceNum;
 
     
 
     private void Awake()
     {
-        GameData = GameObject.Find("TextData").GetComponent<DataParsing>();
+        GameData = GameObject.Find("TextData").GetComponent<TextData>();
         Typingspeed = 0.05f;
         StartCoroutine(TextEffect());
+        CurTextNum = 0;
+        CurChoiceNum = 0;
     }
 
     IEnumerator TextEffect()
     {
         SText = "";
-        for (int i = 0; i < GameData.DialogLength; i++)
+
+         while(true)
         {
-            string a = GameData.DialogList[i];
-            //StartCoroutine(Typing(a));
-            yield return Typing(a);
+            if (CurTextNum == GameData.DialogList.Count - 1) //배열의 크기를 벗어나거나 현재 출력할 내용이 아니면 break
+                break;
+            else if (GameData.DialogPage[CurTextNum] != GameData.DialogPage[CurTextNum + 1])
+                break;
+            else
+            {
+                string a = GameData.DialogList[CurTextNum];
+                yield return Typing(a);
+                CurTextNum++;
+            }
         }
         yield return new WaitForSeconds(0.5f);
         GameManager.SetChoiceButton();

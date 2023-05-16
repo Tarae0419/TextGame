@@ -6,19 +6,15 @@ using UnityEngine;
 
 public class DataParsing : MonoBehaviour
 {
-    public List<string> DialogPage;
-    public List<string> DialogList;
-    [HideInInspector]
-    public int DialogLength;
+    private int DialogLength;
+    public TextData DataManager;
 
-    private void Start()
+    private void Awake()
     {
-        DialogPage = Parsing(1, "Text");
-        DialogList = Parsing(2, "Text");
-    }
-    protected virtual void Awake()
-    {
-        
+        DataManager = gameObject.GetComponent<TextData>();
+
+        DataManager.DialogPage = Parsing(1, "Text");
+        DataManager.DialogList = Parsing(2, "Text");
     }
 
     public List<string> Parsing(int Column ,string ExcelData) //추출할 CSV 파일과 필요한 열 입력

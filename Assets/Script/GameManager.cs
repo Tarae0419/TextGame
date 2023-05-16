@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public Image StatPanel;
     public Image TimerBar;
     public Camera MainCamera;
-    public TextManager TMG;
+    public TextController TMG;
     [HideInInspector]
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        TMG = GetComponent<TextManager>();
+        TMG = GetComponent<TextController>();
         EnableInventoryPanel = false;
         EnableMapPanel = false;
         EnableStatPanel = false;
