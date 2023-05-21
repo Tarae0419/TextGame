@@ -2,27 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextData : MonoBehaviour
+public class TextData
 {
-    private static TextData instance = null;
 
-    public List<string> DialogList;
+    public string DialogList { get; set; }
 
-    public List<string> DialogPage;
+    public string DialogPage{ get; set; }
 
-    public int DialogLength;
+    public string LinkedTextID { get; set; }
 
 
-    protected void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
+    //protected void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(this.gameObject);
+    //    }
+    //    else
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 }

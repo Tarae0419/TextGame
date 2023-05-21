@@ -1,36 +1,43 @@
+using CsvHelper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class DataParsing : MonoBehaviour
 {
-    private int DialogLength;
-    public TextData DataManager;
-
     private void Awake()
     {
-        DataManager = gameObject.GetComponent<TextData>();
-
-        DataManager.DialogPage = Parsing(1, "Text");
-        DataManager.DialogList = Parsing(2, "Text");
+        Parsing();
     }
 
-    public List<string> Parsing(int Column ,string ExcelData) //추출할 CSV 파일과 필요한 열 입력
+    public void Parsing()
     {
-        DialogLength = 0;
-        List<string> ResultData = new List<string>();
-        TextAsset DialogData = Resources.Load<TextAsset>(ExcelData);
-
-        string[] data = DialogData.text.Split(new char[] { '\n' });
-
-        for (int i = 0; i < data.Length; i++)
+        using (var Text = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Text.csv"))
+        using (var csv = new CsvReader(Text, CultureInfo.InvariantCulture))
         {
-            string[] row = data[i].Split(new char[] { ',' });
-            ResultData.Add(row[Column]);
-            DialogLength++;
+            var records = csv.GetRecords<TextData>();
+
+            records.Where(record => record.DialogList == "1");
         }
-        return ResultData; //저장한 값 반환
+
+        using (var Choice = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Choice.csv"))
+        using (var csv = new CsvReader(Choice, CultureInfo.InvariantCulture))
+        {
+            var records = csv.GetRecords<ChoiceText>();
+        }
+
+        using (var Result = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Result.csv"))
+        using (var csv = new CsvReader(Result, CultureInfo.InvariantCulture))
+        {
+            var records = csv.GetRecords<ResultText>();
+        }
     }
 }
+
+
