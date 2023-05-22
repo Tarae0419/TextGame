@@ -1,13 +1,13 @@
 ﻿ChoiceTID,Choicetext,LinkedChoiceID
-Cho_01,알았어. 얼른 들어가자.,Res_01
-Cho_02,기념품점 가 볼래?,Res_02
-Cho_03,뭐 사고 싶은데?,Res_03
-Cho_04,안돼!,Res_04
-Cho_05,머리띠,Res_05
-Cho_06,곰인형,Res_06
-Cho_07,초콜릿,Res_07
-Cho_08,안 사준다.,Res_08
-Cho_09,기념품점을 나선다.,Res_09
+Cho_1,알았어. 얼른 들어가자.,Res_1
+Cho_2,기념품점 가 볼래?,Res_2
+Cho_3,뭐 사고 싶은데?,Res_3
+Cho_4,안돼!,Res_4
+Cho_5,머리띠,Res_5
+Cho_6,곰인형,Res_6
+Cho_7,초콜릿,Res_7
+Cho_8,안 사준다.,Res_8
+Cho_9,기념품점을 나선다.,Res_9
 Cho_10,대로를 벗어난다.,Res_10
 Cho_11,네 맞아요. 청소를 굉장히 잘 하시네요!,Res_11
 Cho_12,네 맞아요.. (불편한 기색을 내비친다.),Res_12

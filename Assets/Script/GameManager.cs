@@ -133,7 +133,6 @@ public class GameManager : MonoBehaviour
 
     public void SetChoiceButton()
     {
-        TMG.SetChoiceText();
         ChoicePanel.gameObject.SetActive(true);
     }
 }

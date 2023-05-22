@@ -11,31 +11,46 @@ using static UnityEditor.Progress;
 
 public class DataParsing : MonoBehaviour
 {
+    [HideInInspector]
+    public DataManager DM;
+    private static DataParsing instance;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        DM = gameObject.GetComponent<DataManager>();
         Parsing();
     }
 
     public void Parsing()
     {
-        using (var Text = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Text.csv"))
+        using (var Text = new StreamReader("D:\\P1 git\\P1\\Assets\\Resources\\Text.csv"))
         using (var csv = new CsvReader(Text, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<TextData>();
-
-            records.Where(record => record.DialogList == "1");
+            DM.TextData = records.ToList();
         }
 
-        using (var Choice = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Choice.csv"))
+        using (var Choice = new StreamReader("D:\\P1 git\\P1\\Assets\\Resources\\Choice.csv"))
         using (var csv = new CsvReader(Choice, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<ChoiceText>();
+            DM.ChoiceText = records.ToList();
         }
 
-        using (var Result = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Result.csv"))
+        using (var Result = new StreamReader("D:\\P1 git\\P1\\Assets\\Resources\\Result.csv"))
         using (var csv = new CsvReader(Result, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<ResultText>();
+            DM.ResultText = records.ToList();
         }
     }
 }

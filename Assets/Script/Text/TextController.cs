@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -13,73 +14,106 @@ public class TextController : MonoBehaviour
     public GameObject ThirdButton;
     public GameObject FourthButton;
     public GameManager GameManager;
-    public TextData GameData;
-    public bool isDialogEnd;
+    public DataManager GameData;
     public float Typingspeed;
     private string SText;
-    private int CurTextNum;
-    private int CurChoiceNum;
-    private string CurID;
-
-    
+    private bool IsChoiced;
 
     private void Awake()
     {
-        GameData = GameObject.Find("TextData").GetComponent<TextData>();
+        GameData = GameObject.Find("TextData").GetComponent<DataManager>();
         Typingspeed = 0.05f;
         StartCoroutine(TextEffect());
-        CurTextNum = 0;
-        CurChoiceNum = 0;
+
     }
 
     IEnumerator TextEffect()
-    {
-        SText = "";
+    {      
+        var data = GameData.TextData;
 
-         while(true)
+        foreach(var Curdata in data)
         {
-            if (CurTextNum == GameData.DialogList.Length - 1) //배열의 크기를 벗어나거나 현재 출력할 내용이 아니면 break
-                break;
-            else if (GameData.DialogPage[CurTextNum] != GameData.DialogPage[CurTextNum + 1])
-                break;
-            else
+            IsChoiced = false; 
+            yield return Typing(Curdata.DialogList); // 본문 출력
+            
+            yield return new WaitForSeconds(0.5f);
+            SetChoiceText(Curdata.LinkedTextID); // 선택지 출력
+            GameManager.SetChoiceButton();
+
+            while(!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
             {
-                string a = GameData.DialogList;
-                yield return Typing(a);
-                CurTextNum++;
+                yield return null;
             }
+            SText = "";
+
         }
-        yield return new WaitForSeconds(0.5f);
-        GameManager.SetChoiceButton();
     }
 
-    public void SetChoiceText()
+    IEnumerator Typing(string text) // 타이핑 효과
     {
-        TextMeshProUGUI FirstText = FirstButton.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI SecondText = SecondButton.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI ThirdText = ThirdButton.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI FourthText = FourthButton.GetComponent<TextMeshProUGUI>();
-    }
-
-    IEnumerator Typing(string text)
-    {
-        int CurrentChar = 0;
-        int CharLength = text.Length;
-
-        for(int a = 0; a < CharLength; a++)
+        foreach (var character in text)
         {
-            SText += text[a];
+            SText += character;
             StoryText.text = SText;
-            CurrentChar++;
             yield return new WaitForSeconds(Typingspeed);
-
-            if (CurrentChar >= CharLength)
-            {
-                isDialogEnd = true;
-                SText += '\n';
-                yield break;
-            }
         }
     }
 
+    public void SetChoiceText(string LinkedTID) //  선택 버튼에 텍스트 띄우기
+    {
+
+        var ChoiceData = GameData.ChoiceText;
+        var Select = ChoiceData.Where(data => data.ChoiceTID == LinkedTID);
+        var SelectNum = 1;
+
+        TextMeshProUGUI FirstText = FirstButton.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI SecondText = SecondButton.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI ThirdText = ThirdButton.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI FourthText = FourthButton.GetComponentInChildren<TextMeshProUGUI>();
+
+        // 한 셀에 여러개의 LinkedTID 있는 경우 나눠야 함
+        foreach (var a in Select)
+        {
+            if (SelectNum == 1)
+            {
+                FirstButton.SetActive(true);
+                FirstText.text = a.Choicetext;
+            }                
+            else if (SelectNum == 2)
+            {
+                SecondButton.SetActive(true);
+                SecondText.text = a.Choicetext;
+            }              
+            else if (SelectNum == 3)
+            {
+                ThirdButton.SetActive(true);
+                ThirdText.text = a.Choicetext;
+            }              
+            else if (SelectNum == 4)
+            {
+                FourthButton.SetActive(true);
+                FourthText.text = a.Choicetext;
+            }
+            SelectNum++;
+        }
+  
+    }
+
+    public string ResultText(string LinkedCID) // 결과 텍스트 출력
+    {
+        var Resultdata = GameData.ResultText;
+        var Select = Resultdata.Where(data => data.ResultTID == LinkedCID);
+        string ReturnData = "";
+
+        foreach(var Result in Select)
+        {
+            ReturnData = Result.Result + "\n";
+        }
+        return ReturnData;
+    }
+
+    public void SelectChoice() // 선택 버튼 함수
+    {
+
+    }
 }

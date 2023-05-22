@@ -243,6 +243,7 @@ MonoBehaviour:
   EnableMapPanel: 0
   EnableStatPanel: 0
   GameTurn: 0
+  Chapter: 0
 --- !u!4 &32533127
 Transform:
   m_ObjectHideFlags: 0
@@ -300,11 +301,8 @@ MonoBehaviour:
   ThirdButton: {fileID: 1707163526}
   FourthButton: {fileID: 2088140318}
   GameManager: {fileID: 32533126}
-  isDialogEnd: 0
+  GameData: {fileID: 0}
   Typingspeed: 0
-  index: 0
-  Dialog: []
-  DialogLength: 0
 --- !u!1 &39965246
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +978,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2DC\uCCAD\uC73C\uB85C \uAC04\uB2E4"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
   m_sharedMaterial: {fileID: 8062805403440685740, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
@@ -1520,7 +1518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB3C4\uC11C\uAD00\uC73C\uB85C \uAC04\uB2E4"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
   m_sharedMaterial: {fileID: 8062805403440685740, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
@@ -1655,7 +1653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC601\uD654\uAD00\uC73C\uB85C \uAC04\uB2E4"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
   m_sharedMaterial: {fileID: 8062805403440685740, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
@@ -8977,7 +8975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2DC\uC7A5\uC73C\uB85C \uAC04\uB2E4"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
   m_sharedMaterial: {fileID: 8062805403440685740, guid: 7745d499e57b5fc4aa64a2b911e3ab1a, type: 2}
