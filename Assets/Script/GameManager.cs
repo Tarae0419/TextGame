@@ -8,7 +8,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Image ChoicePanel; 
+     
     public Image InventoryPanel;
     public Image MapPanel;
     public Image StatPanel;
@@ -131,8 +131,4 @@ public class GameManager : MonoBehaviour
         GameTurn++;
     }
 
-    public void SetChoiceButton()
-    {
-        ChoicePanel.gameObject.SetActive(true);
-    }
 }
