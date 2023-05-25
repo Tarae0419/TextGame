@@ -8,6 +8,6 @@ public class ChoiceText
 
     public string Choicetext { get; set; }
 
-    public string LinkedChoiceID { get; set; }
+    public string LinkedResultID { get; set; }
 
 }

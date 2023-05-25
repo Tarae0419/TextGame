@@ -13,13 +13,10 @@ public class UIManager : MonoBehaviour
     public Image MapPanel;
     public Image StatPanel;
     public Image TimerBar;
-    public Camera MainCamera;
-    public TextController TMG;
     [HideInInspector]
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
-    public int Chapter;
     private bool TimeSet;
     private bool Timer;
     private float UITime;
@@ -27,12 +24,10 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        TMG = GetComponent<TextController>();
         EnableInventoryPanel = false;
         EnableMapPanel = false;
         EnableStatPanel = false;
         TimeSet = false;
-        Chapter = 1;
 
     }
 

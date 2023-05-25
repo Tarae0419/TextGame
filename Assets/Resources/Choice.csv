@@ -1,4 +1,4 @@
-﻿ChoiceTID,Choicetext,LinkedChoiceID
+﻿ChoiceTID,Choicetext,LinkedResultID
 Cho_1,알았어. 얼른 들어가자.,Res_1
 Cho_2,기념품점 가 볼래?,Res_2
 Cho_3,뭐 사고 싶은데?,Res_3

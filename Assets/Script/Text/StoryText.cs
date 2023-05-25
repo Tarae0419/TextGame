@@ -8,6 +8,6 @@ public class StoryText
 
     public string DialogList { get; set; }
 
-    public string LinkedTextID { get; set; }
+    public string LinkedChoiceID { get; set; }
 
 }

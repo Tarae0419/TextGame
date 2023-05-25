@@ -3,31 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextController : MonoBehaviour
 {
-    public Image ChoicePanel;
     public TextMeshProUGUI StoryText;
     public ScrollRect scrollRect;
-    public GameObject FirstButton;
-    public GameObject SecondButton;
-    public GameObject ThirdButton;
-    public GameObject FourthButton;
-    public DataManager GameData;
+    public ChoiceButtonUI ChoiceUI;
+    public ConditionChecker ConCheck;
+    private DataManager GameData;
+    [HideInInspector]
     public float Typingspeed;
     private string SText;
     private string resultText;
     private bool IsChoiced;
-    private IEnumerable<ChoiceText> Select;
-    private ChoiceButtonUI ChoiceUI;
-
 
     private void Awake()
     {
         GameData = GameObject.Find("TextData").GetComponent<DataManager>();
+        ConCheck = gameObject.GetComponent<ConditionChecker>();
         Typingspeed = 0.05f;
+        
+    }
+    public void Start()
+    {
         StartCoroutine(StartGame());
     }
 
@@ -37,12 +38,13 @@ public class TextController : MonoBehaviour
 
         foreach(var Curdata in data) //아침일 때 사이클
         {
+            ConCheck.ConditionCheck();
             IsChoiced = false; 
             yield return TypingEffect(Curdata.DialogList); // 본문 출력
             
             yield return new WaitForSeconds(0.5f);
             ChoiceUI.SetChoiceText(); // 선택지 출력
-            ChoicePanel.gameObject.SetActive(true);
+            ChoiceUI.SetButton();
 
             while (!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
             {
@@ -77,7 +79,5 @@ public class TextController : MonoBehaviour
         IsChoiced = true;
         resultText = ReturnData;
     }
-
-
-    
+  
 }

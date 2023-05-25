@@ -10,7 +10,6 @@ public class MapController : MonoBehaviour
     public GameObject MapButton;
     public GameObject MapCountManager;
     public GameObject Player;
-    public GameManager gameManager;
     private CharacterData PlayerData;
     public TextMeshProUGUI FirstMap;
     public TextMeshProUGUI SecondMap;
@@ -40,7 +39,6 @@ public class MapController : MonoBehaviour
         CurColumn = 5;
         Mapcount = MapCountManager.GetComponent<MapCount>();
         PlayerData = Player.GetComponent<Character>().Characterdata;
-        gameManager = GetComponent<GameManager>();
     }
 
     void Update()
@@ -85,7 +83,6 @@ public class MapController : MonoBehaviour
         TimerBar.fillAmount = 1;
         PlayerData.CurrentMapName = MapName[CurRow, CurColumn];
         Mapcount.IncreaseMapCount(PlayerData.CurrentMapName); //increase map incount
-        gameManager.TurnIncrease();
         ResetButtonText();
         // start next?
     }
