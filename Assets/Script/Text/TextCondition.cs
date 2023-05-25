@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextCondition : MonoBehaviour
+public class TextCondition
 {
-    string Time { get; set; }
+    public string Time { get; set; }
 
-    string Location { get; set; }
+    public string Location { get; set; }
 
-    string GameTurn { get; set; }
+    public string Char { get; set; }
 
-    string NPCIn { get; set; }
+    public string NPC { get; set; }
+
+    public string TID { get; set; }
 }
