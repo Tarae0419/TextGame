@@ -9,8 +9,7 @@ public class MapController : MonoBehaviour
 {
     public GameObject MapButton;
     public GameObject MapCountManager;
-    public GameObject Player;
-    private CharacterData PlayerData;
+    public CharacterData PlayerData;
     public TextMeshProUGUI FirstMap;
     public TextMeshProUGUI SecondMap;
     public TextMeshProUGUI ThirdMap;
@@ -38,7 +37,6 @@ public class MapController : MonoBehaviour
         CurRow = 3;
         CurColumn = 5;
         Mapcount = MapCountManager.GetComponent<MapCount>();
-        PlayerData = Player.GetComponent<Character>().Characterdata;
     }
 
     void Update()

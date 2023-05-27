@@ -8,15 +8,16 @@ using TMPro;
 public class Character : MonoBehaviour
 {
     public Image CurrentLocation;
-    public CharacterData Characterdata;
+    public CharacterData Chardata;
 
     void Awake()
     {
+        Chardata = gameObject.GetComponent<CharacterData>();
         GameStart();
     }
     void Update()
     {
-        PlayerLocation(Characterdata.CurrentMapName);
+        PlayerLocation(Chardata.CurrentMapName);
     }
 
     // change player location in map
@@ -45,26 +46,28 @@ public class Character : MonoBehaviour
         else
         {
             LobbyData Data = LobbyData.GetComponent<LobbyData>();
-            Characterdata = Data.Characterdata;
+            Chardata = Data.Characterdata;
         }
         Destroy(LobbyData);
     }
-}
-[System.Serializable]
-public class CharacterData
-{
-    public string Name;
-    public int HP;
-    public int SAN;
-    public int STR;
-    public int END;
-    public int CON;
-    public int DEX;
-    public int INT;
-    public int EDU;
-    public int INS;
-    public int CHA;
-    public int PROB;
-    public string CurrentMapName; 
-}
 
+    public void AddCharStat(string stat, int num) // 스탯 증가 함수
+    {
+        switch (stat)
+        { 
+            case "HP": Chardata.HP += num; break;
+            case "SAN": Chardata.SAN += num; break;
+            case "STR": Chardata.STR += num; break;
+            case "END": Chardata.END += num; break;
+            case "CON": Chardata.CON += num; break;
+            case "DEX": Chardata.DEX += num; break;
+            case "INT": Chardata.INT += num; break;
+            case "EDU": Chardata.EDU += num; break;
+            case "INS": Chardata.INS += num; break;
+            case "CHA": Chardata.CHA += num; break;
+            case "PROB": Chardata.PROB += num; break;
+        }
+
+    }
+
+}

@@ -769,7 +769,7 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 10
-    m_Bottom: 100
+    m_Bottom: 150
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -3800,6 +3800,7 @@ MonoBehaviour:
   StoryText: {fileID: 1529055621}
   scrollRect: {fileID: 355436316}
   ChoiceUI: {fileID: 928628571}
+  ConCheck: {fileID: 0}
   Typingspeed: 0
 --- !u!114 &697556547
 MonoBehaviour:

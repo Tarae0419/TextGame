@@ -118,6 +118,4 @@ public class UIManager : MonoBehaviour
         Timer = true;
     }
 
-
-
 }

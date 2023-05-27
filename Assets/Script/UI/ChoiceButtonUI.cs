@@ -17,15 +17,14 @@ public class ChoiceButtonUI : MonoBehaviour
     public ConditionChecker GameData;
     private TextController TC;
 
-
     public void SetChoiceText() //  선택 버튼에 텍스트 띄우기
     {
-        var SelectNum = 1;
-        
         TextMeshProUGUI FirstText = FirstButton.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI SecondText = SecondButton.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI ThirdText = ThirdButton.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI FourthText = FourthButton.GetComponentInChildren<TextMeshProUGUI>();
+
+        var SelectNum = 1;
 
         foreach (var a in GameData.Select) // 한 셀에 여러개의 LinkedTID 있는 경우 나눠야 함
         {
@@ -76,7 +75,7 @@ public class ChoiceButtonUI : MonoBehaviour
         FourthButton.SetActive(false);
     }
 
-    public void SetButton()
+    public void SetButton() // 버튼 띄우기
     {
         ChoicePanel.gameObject.SetActive(true);
     }
