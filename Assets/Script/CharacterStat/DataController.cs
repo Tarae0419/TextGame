@@ -19,15 +19,16 @@ public class DataController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
     }
     public void SetCharacterData(int Select)
     {
         switch (Select)
         {
-            case 1: CharacterData = GetComponent<MomData>(); CharacterData.InitSetting(); break;
-            case 2: CharacterData = GetComponent<RangerData>(); CharacterData.InitSetting(); break;
-            case 3: CharacterData = GetComponent<PTJData>(); CharacterData.InitSetting(); break;
-            case 4: CharacterData = GetComponent<PuppyData>(); CharacterData.InitSetting(); break;
+            case 1: CharacterData = gameObject.GetComponent<MomData>(); CharacterData.InitSetting(); break;
+            case 2: CharacterData = gameObject.GetComponent<RangerData>(); CharacterData.InitSetting(); break;
+            case 3: CharacterData = gameObject.GetComponent<PTJData>(); CharacterData.InitSetting(); break;
+            case 4: CharacterData = gameObject.GetComponent<PuppyData>(); CharacterData.InitSetting(); break;
         }
     }
 }

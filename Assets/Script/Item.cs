@@ -8,44 +8,47 @@ using JetBrains.Annotations;
 
 public class Item : MonoBehaviour
 {
-    public string[] ItemArray;
+    public List<string> ItemArray;
     public TextMeshProUGUI FirstColumText;
     public TextMeshProUGUI SecondColumText;
     public TextMeshProUGUI ThirdColumText;
-    private int ItemCount;
     private int ColumnCount;
 
     private void Awake()
     {
-        ItemArray = new string[20];
-        ItemCount = 0;
         ColumnCount = 0;
     }
 
     void Start()
     {
-        AddItem("권총");
-        AddItem("개껌");
-        AddItem("고구마");
-        AddItem("손목시계");
-        AddItem("신문");
-        AddItem("안경");
-        AddItem("양념치킨");
-        AddItem("물"); 
-        AddItem("휴지");
+        ItemArray.Add("권총");
+        ItemArray.Add("개껌");
+        ItemArray.Add("고구마");
+        ItemArray.Add("손목시계");
+        ItemArray.Add("신문");
+        ItemArray.Add("안경");
+        ItemArray.Add("양념치킨");
+        ItemArray.Add("물"); 
+        ItemArray.Add("휴지");
+        PrintItem();
     }
 
-    public void AddItem(string ItemName)
+    public void PrintItem()
     {
-        switch (ColumnCount)
-        {
-            case 0: FirstColumText.text = FirstColumText.text + ItemName + "\n"; break;
-            case 1: SecondColumText.text = SecondColumText.text + ItemName + "\n"; break;
-            case 2: ThirdColumText.text = ThirdColumText.text + ItemName + "\n"; break;
-        }
+        FirstColumText.text = "";
+        SecondColumText.text = "";
+        ThirdColumText.text = "";
 
-        ColumnCount = (ColumnCount + 1) % 3;
-        ItemArray[ItemCount++] = ItemName;
+        foreach (var Item in ItemArray)
+        {
+            switch (ColumnCount)
+            {
+                case 0: FirstColumText.text = FirstColumText.text + Item + "\n"; break;
+                case 1: SecondColumText.text = SecondColumText.text + Item + "\n"; break;
+                case 2: ThirdColumText.text = ThirdColumText.text + Item + "\n"; break;
+            }
+            ColumnCount = (ColumnCount + 1) % 3;
+        }
     }
 
 }

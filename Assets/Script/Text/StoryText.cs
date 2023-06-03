@@ -10,4 +10,6 @@ public class StoryText
 
     public string LinkedChoiceID { get; set; }
 
+    //public string TextType { get; set; }
+
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameStat : MonoBehaviour
 {
     public string CurTime;
     public string CurPos;
@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GameTurn = 1;
+        CurTime = "0";
+        CurPos = "¸ÅÇ¥¼Ò";
     }
 
     public void TurnIncrease()

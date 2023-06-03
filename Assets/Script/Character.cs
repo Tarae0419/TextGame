@@ -12,7 +12,6 @@ public class Character : MonoBehaviour
 
     void Awake()
     {
-        Chardata = gameObject.GetComponent<CharacterData>();
         GameStart();
     }
     void Update()
@@ -70,4 +69,22 @@ public class Character : MonoBehaviour
 
     }
 
+}
+
+[System.Serializable]
+public class CharacterData
+{
+    public string Name;
+    public int HP;
+    public int SAN;
+    public int STR;
+    public int END;
+    public int CON;
+    public int DEX;
+    public int INT;
+    public int EDU;
+    public int INS;
+    public int CHA;
+    public int PROB;
+    public string CurrentMapName;
 }

@@ -15,38 +15,49 @@ public class ChoiceButtonUI : MonoBehaviour
     public GameObject ThirdButton;
     public GameObject FourthButton;
     public ConditionChecker GameData;
-    private TextController TC;
+    public DataManager DataMGR;
+    public TextController TC;
+    private IEnumerable<string> LCIDData;
 
-    public void SetChoiceText() //  선택 버튼에 텍스트 띄우기
+
+    private void Awake()
+    {
+        DataMGR = GameObject.Find("TextData").GetComponent<DataManager>();
+    }
+
+    public void SetChoiceText(string LCID) //  선택 버튼에 텍스트 띄우기
     {
         TextMeshProUGUI FirstText = FirstButton.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI SecondText = SecondButton.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI ThirdText = ThirdButton.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI FourthText = FourthButton.GetComponentInChildren<TextMeshProUGUI>();
 
+        LCIDData = LCID.Split(',');
+
         var SelectNum = 1;
 
-        foreach (var a in GameData.Select) // 한 셀에 여러개의 LinkedTID 있는 경우 나눠야 함
+        foreach (var a in LCIDData) // 한 셀에 여러개의 LinkedTID 있는 경우 나눠야 함
         {
             if (SelectNum == 1)
             {
                 FirstButton.SetActive(true);
-                FirstText.text = a.Choicetext;
+                Debug.Log(a);
+                FirstText.text = DataMGR.ChoiceText.Where(x=>x.ChoiceTID == a).First().Choicetext;
             }
             else if (SelectNum == 2)
             {
                 SecondButton.SetActive(true);
-                SecondText.text = a.Choicetext;
+                SecondText.text = DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().Choicetext;
             }
             else if (SelectNum == 3)
             {
                 ThirdButton.SetActive(true);
-                ThirdText.text = a.Choicetext;
+                ThirdText.text = DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().Choicetext;
             }
             else if (SelectNum == 4)
             {
                 FourthButton.SetActive(true);
-                FourthText.text = a.Choicetext;
+                FourthText.text = DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().Choicetext;
             }
             SelectNum++;
         }
@@ -56,10 +67,10 @@ public class ChoiceButtonUI : MonoBehaviour
     {
         var ResultNum = 1;
 
-        foreach (var a in GameData.Select)
+        foreach (var a in LCIDData)
         {
             if (ResultNum == ButtonSelect)
-                TC.ResultText(a.LinkedResultID);
+            TC.ResultText(DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().LinkedResultID);
             ResultNum++;
         }
         ButtonOff();

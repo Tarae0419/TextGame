@@ -247,16 +247,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapButton: {fileID: 1844723528}
+  MapPanel: {fileID: 553006277}
   MapCountManager: {fileID: 1278712591}
-  Player: {fileID: 568767517}
+  PlayerData:
+    Name: 
+    HP: 0
+    SAN: 0
+    STR: 0
+    END: 0
+    CON: 0
+    DEX: 0
+    INT: 0
+    EDU: 0
+    INS: 0
+    CHA: 0
+    PROB: 0
+    CurrentMapName: 
   FirstMap: {fileID: 2105364670}
   SecondMap: {fileID: 593501970}
   ThirdMap: {fileID: 1330309512}
   FourthMap: {fileID: 1733406079}
+  GameStat: {fileID: 0}
   Mapcount: {fileID: 0}
   TimerBar: {fileID: 545200992}
-  CurRow: 0
-  CurColumn: 0
+  MorningMapName: []
+  LunchMapName: []
 --- !u!114 &32533129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3242,7 +3257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentLocation: {fileID: 1772527161}
-  Characterdata:
+  Chardata:
     Name: 
     HP: 0
     SAN: 0
@@ -3801,6 +3816,9 @@ MonoBehaviour:
   scrollRect: {fileID: 355436316}
   ChoiceUI: {fileID: 928628571}
   ConCheck: {fileID: 0}
+  GameData: {fileID: 0}
+  MapController: {fileID: 0}
+  GameStat: {fileID: 32533129}
   Typingspeed: 0
 --- !u!114 &697556547
 MonoBehaviour:
@@ -4763,8 +4781,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TextController, Assembly-CSharp
+      - m_Target: {fileID: 928628571}
+        m_TargetAssemblyTypeName: ChoiceButtonUI, Assembly-CSharp
         m_MethodName: SelectChoice
         m_Mode: 3
         m_Arguments:
@@ -4984,6 +5002,8 @@ MonoBehaviour:
   ThirdButton: {fileID: 1707163526}
   FourthButton: {fileID: 2088140318}
   GameData: {fileID: 697556547}
+  DataMGR: {fileID: 0}
+  TC: {fileID: 697556546}
 --- !u!4 &928628572
 Transform:
   m_ObjectHideFlags: 0
@@ -7102,8 +7122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TextController, Assembly-CSharp
+      - m_Target: {fileID: 928628571}
+        m_TargetAssemblyTypeName: ChoiceButtonUI, Assembly-CSharp
         m_MethodName: SelectChoice
         m_Mode: 3
         m_Arguments:
@@ -7407,8 +7427,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TextController, Assembly-CSharp
+      - m_Target: {fileID: 928628571}
+        m_TargetAssemblyTypeName: ChoiceButtonUI, Assembly-CSharp
         m_MethodName: SelectChoice
         m_Mode: 3
         m_Arguments:
@@ -8844,7 +8864,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03c2118b3304c54faec3d5c8f7cd8e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 568767520}
+  Player:
+    Name: 
+    HP: 0
+    SAN: 0
+    STR: 0
+    END: 0
+    CON: 0
+    DEX: 0
+    INT: 0
+    EDU: 0
+    INS: 0
+    CHA: 0
+    PROB: 0
+    CurrentMapName: 
   NameText: {fileID: 39965248}
   CurrentHPText: {fileID: 1361965829}
   CurrentSANText: {fileID: 1247241716}
@@ -9091,8 +9124,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TextController, Assembly-CSharp
+      - m_Target: {fileID: 928628571}
+        m_TargetAssemblyTypeName: ChoiceButtonUI, Assembly-CSharp
         m_MethodName: SelectChoice
         m_Mode: 3
         m_Arguments:

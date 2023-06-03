@@ -6,6 +6,7 @@ public class MomData : LobbyData
 {
     public override void InitSetting()
     {
+
         Characterdata.Name = "아이 엄마";
         Characterdata.HP = 100;
         Characterdata.SAN = 80;

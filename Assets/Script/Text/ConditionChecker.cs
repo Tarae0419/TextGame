@@ -7,7 +7,7 @@ public class ConditionChecker : MonoBehaviour
 {
     [HideInInspector]
     public DataManager GameData;
-    public GameManager GMG;
+    public GameStat GMG;
     public IEnumerable<TextCondition> ConditionData;
     public IEnumerable<StoryText> StoryData;
     public IEnumerable<ChoiceText> ChoiceData;
@@ -20,11 +20,11 @@ public class ConditionChecker : MonoBehaviour
 
     public void ConditionCheck()
     {
-        ConditionData = GameData.TextCondition.Where(Con => Con.Time == GMG.CurTime && Con.Location == GMG.CurPos); //적합한 Condition 열 가져오기
-        StoryData = GameData.StoryText.Where(TID => TID.ConID == ConditionData.FirstOrDefault().TID); //적합한 Story 열 가져오기
-        ChoiceData = GameData.ChoiceText.Where(CID => CID.ChoiceTID == StoryData.FirstOrDefault().LinkedChoiceID); //적합한 Choice 열 가져오기
-        var LinkedTID = ChoiceData.FirstOrDefault().ChoiceTID.Split(',');
-        Select = ChoiceData.Where(data => LinkedTID.Contains(data.ChoiceTID)); //LinkedResultID 가져오기
+        ConditionData = GameData.TextCondition.Where(Con => Con.Time == GMG.CurTime && Con.Position == GMG.CurPos); //적합한 Condition 열 가져오기
+        StoryData = GameData.StoryText.Where(TID => TID.ConID == ConditionData.First().TextID); //적합한 Story 열 가져오기
+        ChoiceData = GameData.ChoiceText.Where(CID => CID.ChoiceTID == StoryData.First().LinkedChoiceID); //적합한 Choice 열 가져오기
+        var LinkedTID = ChoiceData.SelectMany(LID => LID.LinkedResultID.Split(','));
+        Select = ChoiceData.Where(data => LinkedTID.Contains(data.LinkedResultID)); //LinkedResultID 가져오기
 
     }
 }

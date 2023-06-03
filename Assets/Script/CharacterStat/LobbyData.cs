@@ -10,4 +10,4 @@ public abstract class LobbyData : MonoBehaviour
 
     public abstract void InitSetting(); 
     
-} 
+}
