@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class NPCMove : MonoBehaviour
+public class NPCMove
 {
-    public List<string> DollPos;
-    public List<string> RangerPos;
-    public List<string> DogPos;
+    public List<string> DollPos { get; set; }
+    public List<string> RangerPos { get; set; }
+    public List<string> DogPos { get; set; }
 
-    private void Awake()
+    public NPCMove()
     {
         DogPos = new List<string>() { "광장", "매점", "회전목마", "매점", "광장"}; // 강아지 위치 설정
-        SetMoving();
+        SetMoving(); // 나머지 위치 설정
     }
 
     public void SetMoving()
@@ -52,7 +52,6 @@ public class NPCMove : MonoBehaviour
         RangerPos.Add("매점"); // 관리인 위치 설정
         RangerPos.Add("관람차");
         RangerPos.Add("매점");
-        RangerPos.Add("광장");
         RangerPos.Add("광장");
 
         DollPos.Add("익스트림 어트렉션"); // 인형탈 알바 위치 설정

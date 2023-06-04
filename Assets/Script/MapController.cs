@@ -10,14 +10,11 @@ public class MapController : MonoBehaviour
     public GameObject MapButton;
     public GameObject MapPanel;
     public GameObject MapCountManager;
+    public GameObject Button1;
+    public GameObject Button2;
     public CharacterData PlayerData;
-    public TextMeshProUGUI FirstMap;
-    public TextMeshProUGUI SecondMap;
-    public TextMeshProUGUI ThirdMap;
-    public TextMeshProUGUI FourthMap; 
     public GameStat GameStat;
     public MapCount Mapcount;
-    public Image TimerBar;
     public string[] MorningMapName;
     public string[] LunchMapName;
 
@@ -28,6 +25,7 @@ public class MapController : MonoBehaviour
         MorningMapName = new string[14] {"매표소", "기념품점", "기념품점", "대로", "광장", "광장", "바이킹", "바이킹", "롤러코스터", "롤러코스터", "매점", "매점", "회전목마", "관람차" };
         LunchMapName = new string[4] { "대로", "기념품점", "매표소", "광장" };
         Mapcount = MapCountManager.GetComponent<MapCount>();
+        SetMap("매표소,기념품점");
     }
 
 
@@ -43,15 +41,25 @@ public class MapController : MonoBehaviour
         IEnumerable<string> MapData = Map.Split(',');
 
         foreach(var a in MapData)
-        {
-            /*
-             swtich(a)
+        {    
+             switch(a)
             {
-            case "맵이름": 버튼.SetActive(true); break;
-            ...
+                case "매표소": Button1.SetActive(true); break;
+                case "기념품점": Button2.SetActive(true); break;
+                    /*
+                     case "대로": Button2.SetActive(true); break;
+                     case "광장": Button2.SetActive(true); break;
+                     case "매점": Button2.SetActive(true); break;
+                     case "회전목마": Button2.SetActive(true); break;
+                     case "관람차": Button2.SetActive(true); break;
+                     case "익스트림 어트렉션": Button2.SetActive(true); break;
+                     case "롤러코스터": Button2.SetActive(true); break;
+                     case "바이킹": Button2.SetActive(true); break;
+                     case "거울의 미로": Button2.SetActive(true); break;
+                     */
             }
-             
-            */
+
+
         }
         MapPanel.SetActive(true);
     }

@@ -72,11 +72,10 @@ public class TextController : MonoBehaviour
         yield return evening();
     }
 
-
     IEnumerator Morning()
     {
         var Morningdata = GameData.TextCondition.Join(GameData.StoryText, tc=>tc.TextID, st=>st.ConID, (tc, st)=> new { TextCondition=tc, StoryText=st  })
-            .Where(x=> x.TextCondition.Time == "0"); //아침 데이터 가져오기
+                          .Where(x=> x.TextCondition.Time == "0"); //아침 데이터 가져오기
 
         foreach (var Curdata in Morningdata) //아침일 때 사이클
         {
@@ -97,7 +96,6 @@ public class TextController : MonoBehaviour
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
         }
-
     }
 
     IEnumerator Lunch()
@@ -106,7 +104,7 @@ public class TextController : MonoBehaviour
         MapController.MapUpdate("광장");
 
         var Lunchdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-            .Where(x => x.TextCondition.Time == "1" /*&& 강제텍스트*/); //점심 강제텍스트 가져오기
+                        .Where(x => x.TextCondition.Time == "1" /*&& 강제텍스트*/); //점심 강제텍스트 가져오기
 
         foreach (var Curdata in Lunchdata) //점심 초반부분 사이클
         {
@@ -128,6 +126,7 @@ public class TextController : MonoBehaviour
             yield return TypingEffect(resultText); // 결과 본문 출력
         }
 
+
         for (int i = 0; i < 5; i++) // 점심 중반부분 사이클
         {
             var MapData = GameData.TextCondition.Where(x => x.Position == GameStat.CurPos && x.Time == GameStat.CurPos /*&& x.Map == "1"*/);
@@ -144,13 +143,14 @@ public class TextController : MonoBehaviour
         GameStat.CurTime = "2"; // 저녁으로 변경
 
         var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-            .Where(x => x.TextCondition.Time == "2"); // 저녁 강제텍스트 가져오기
+                         .Where(x => x.TextCondition.Time == "2"); // 저녁 강제텍스트 가져오기
 
         foreach (var Curdata in Dinnerdata) // 저녁 사이클
         {
 
         }
 
-        yield return null;
+        var EndGame = "플레이 타임 : " + GameStat.GetPlayTime();
+        yield return TypingEffect(EndGame);
     }
 }
