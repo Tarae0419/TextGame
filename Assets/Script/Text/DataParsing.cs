@@ -31,14 +31,14 @@ public class DataParsing : MonoBehaviour
 
     public void Parsing()
     {
-        using (var Condition = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Condition.csv"))
+        using (var Condition = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\TextCondition.csv"))
         using (var csv = new CsvReader(Condition, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<TextCondition>();
             DM.TextCondition = records.ToList();
         }
 
-        using (var Text = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Text.csv"))
+        using (var Text = new StreamReader("E:\\P1 git\\P1\\Assets\\Resources\\Contents.csv"))
         using (var csv = new CsvReader(Text, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<StoryText>();

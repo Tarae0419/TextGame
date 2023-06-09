@@ -18,7 +18,7 @@ public class TextCondition
 
     public string TextID { get; set; }
 
-    //public string Map { get; set; }
+    public string Map { get; set; }
 
-    //public string MapPosition { get; set; } 
+    public string MapPosition { get; set; } 
 }

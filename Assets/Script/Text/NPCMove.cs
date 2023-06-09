@@ -17,8 +17,8 @@ public class NPCMove
 
     public void SetMoving()
     {
-        DollPos.Add("±¤Àå");
-        RangerPos.Add("±¤Àå");
+        DollPos = new List<string>() { "±¤Àå" };
+        RangerPos = new List<string>() { "±¤Àå" };
 
         int a = UnityEngine.Random.Range(0, 2);
 

@@ -36,23 +36,23 @@ public class GameStat : MonoBehaviour
     //NPC 위치 확인 후 해당 NPC 이름 반환
     public string CheckNPC(int Turn)
     {
-        if (CurPos == NPCPosition.DollPos[Turn])
+           
+        if (CurPos == NPCPosition.RangerPos[Turn])
         {
-            isNPC = true;  return "인형탈 알바";
-        }
-            
-        else if (CurPos == NPCPosition.RangerPos[Turn])
-        {
-            isNPC = true;  return "관리인";
+            isNPC = true;  return "0";
         }
             
         else if (CurPos == NPCPosition.DogPos[Turn])
         {
-            isNPC = true;  return "강아지";
+            isNPC = true;  return "1";
+        }
+        else if (CurPos == NPCPosition.DollPos[Turn])
+        {
+            isNPC = true; return "2";
         }
         else
         {
-            isNPC = false;  return "";
+            isNPC = false;  return "x";
         }
     }
 

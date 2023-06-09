@@ -10,6 +10,6 @@ public class ChoiceText
 
     public string LinkedResultID { get; set; }
 
-    //public string RelatedItem { get; set; } 
+    public string RelatedItem { get; set; } 
 
 }
