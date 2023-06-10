@@ -27,7 +27,7 @@ public class TextController : MonoBehaviour
     {
         GameData = GameObject.Find("TextData").GetComponent<DataManager>();
         ConCheck = gameObject.GetComponent<ConditionChecker>();
-        Typingspeed = 0.05f;
+        Typingspeed = 0.00001f;
         
     }
     public void Start()
@@ -67,8 +67,8 @@ public class TextController : MonoBehaviour
     
     IEnumerator GameStart()
     {
-        yield return Morning();
-        yield return LunchBeginning();
+        //yield return Morning();
+        //yield return LunchBeginning();
         yield return LunchMiddle();
         yield return evening();
     }
@@ -80,22 +80,23 @@ public class TextController : MonoBehaviour
         foreach (var Curdata in Morningdata) //아침일 때 사이클
         {
             IsChoiced = false;
+            GameStat.IsMapChoiced = false;
+
             yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
 
             yield return new WaitForSeconds(0.5f);
             ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
             ChoiceUI.SetButton();
 
-            while (!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
-            {
-                yield return null;
-            }
+            yield return WaitChoiceSelect();
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
             if (Curdata.TextCondition.Map == "1")
+            {
                 MapController.SetMap(Curdata.TextCondition.MapPosition);
-            //맵 선택 전까지 텍스트ㅡㄹ 불러오지 않음(개발할 것)
+                yield return WaitMapSelect();
+            }           
         }
     }
 
@@ -106,62 +107,72 @@ public class TextController : MonoBehaviour
 
         var Lunchdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                         .Where(x => x.TextCondition.Time == "1"); //점심 강제텍스트 가져오기
-        int i = 0;
+
         foreach (var Curdata in Lunchdata) //점심 초반부분 사이클
         {
             IsChoiced = false;
+            
             yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
 
             yield return new WaitForSeconds(0.5f);
             ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
             ChoiceUI.SetButton();
 
-            while (!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
-            {
-                yield return null;
-            }
-            
-            MapController.MapUpdate(MapController.LunchMapName[i++]); //현재 플레이어 위치 변경
+            yield return WaitChoiceSelect();
+
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
-        }
+            if (Curdata.TextCondition.Map == "1")
+            {
+                GameStat.IsMapChoiced = false;
 
+                if (Curdata.TextCondition.MapPosition == "0")
+                {
+                    MapController.SetButton();
+                    yield return WaitMapSelect();
+                }
+                else
+                {
+                    MapController.SetMap(Curdata.TextCondition.MapPosition);
+                    yield return WaitMapSelect();
+                }                
+            }          
+        }
     }
 
     IEnumerator LunchMiddle()
     {
-        
-        
+        MapController.MapUpdate("광장");
+
         for (int i = 0; i < 5; i++) // 점심 중반부분 사이클
         {
+            GameStat.CurTime = "2";
+            Debug.Log(GameStat.CheckNPC(i));
+            Debug.Log(i);
+
             var MapData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                         .Where(x => x.TextCondition.Time == "2" && x.TextCondition.Position == GameStat.CurPos);          
 
             foreach (var Curdata in MapData)
             {
                 IsChoiced = false;
+                GameStat.IsMapChoiced = false;
                 yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
 
                 yield return new WaitForSeconds(0.5f);
-                ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
-                ChoiceUI.SetButton();
-
-                while (!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
-                {
-                    yield return null;
-                }
-                SText = "";
-                scrollRect.verticalNormalizedPosition = 1f;
-                yield return TypingEffect(resultText); // 결과 본문 출력
+                
 
                 if (Curdata.TextCondition.Map == "0")
                 {
-                    ClueCylce(i);
+                    yield return ClueCylce(i);
                 }
                 else
                 {
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
                     MapController.SetButton();
+                    yield return WaitMapSelect();
                 }   
             }
         }
@@ -175,10 +186,10 @@ public class TextController : MonoBehaviour
 
     IEnumerator evening()
     {
-        GameStat.CurTime = "2"; // 저녁으로 변경
+        GameStat.CurTime = "4"; // 저녁으로 변경
 
         var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-                         .Where(x => x.TextCondition.Time == "2"); // 저녁 강제텍스트 가져오기
+                         .Where(x => x.TextCondition.Time == "4"); // 저녁 강제텍스트 가져오기
 
         foreach (var Curdata in Dinnerdata) // 저녁 사이클
         {
@@ -191,26 +202,44 @@ public class TextController : MonoBehaviour
 
     IEnumerator ClueCylce(int turn)
     {
+        GameStat.CurTime = "3";
+
         var ClueData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                         .Where(x => x.TextCondition.Time == "3" && x.TextCondition.Position == GameStat.CurPos && x.TextCondition.NPCType == GameStat.CheckNPC(turn));
 
         foreach (var b in ClueData)
         {
             IsChoiced = false;
+            GameStat.IsMapChoiced = false;
+
             yield return TypingEffect(b.StoryText.DialogList); // 본문 출력
 
             yield return new WaitForSeconds(0.5f);
             ChoiceUI.SetChoiceText(b.StoryText.LinkedChoiceID); // 선택지 출력
             ChoiceUI.SetButton();
 
-            while (!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
-            {
-                yield return null;
-            }
+            yield return WaitChoiceSelect();
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
             MapController.SetButton();
+            yield return WaitMapSelect();
+        }
+    }
+
+    IEnumerator WaitMapSelect()
+    {
+        while (!GameStat.IsMapChoiced)// 맵을 선택하기 전까지 다음 텍스트를 불러오지 않음
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator WaitChoiceSelect()
+    {
+        while (!IsChoiced)// 선택하기 전까지 다음 텍스트를 불러오지 않음
+        {
+            yield return null;
         }
     }
 }

@@ -11,7 +11,7 @@ public class NPCMove
 
     public NPCMove()
     {
-        DogPos = new List<string>() { "광장", "매점", "회전목마", "매점", "광장"}; // 강아지 위치 설정
+        DogPos = new List<string>() { "회전목마", "회전목마", "회전목마", "회전목마", "회전목마" }; // 강아지 위치 설정
         SetMoving(); // 나머지 위치 설정
     }
 

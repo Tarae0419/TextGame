@@ -10,6 +10,7 @@ public class GameStat : MonoBehaviour
     public string CurPos;
     public int GameTurn;
     public bool isNPC;
+    public bool IsMapChoiced;
     public NPCMove NPCPosition;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class GameStat : MonoBehaviour
         isNPC = false;
         NPCPosition = new NPCMove();
         PlayTime = 0;
+        IsMapChoiced = false;
     }
 
     private void Update()

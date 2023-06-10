@@ -7,11 +7,19 @@ using TMPro;
 
 public class MapController : MonoBehaviour
 {
-    public GameObject MapButton;
     public GameObject MapPanel;
     public GameObject MapCountManager;
     public GameObject Button1;
     public GameObject Button2;
+    public GameObject Button3;
+    public GameObject Button4;
+    public GameObject Button5;
+    public GameObject Button6;
+    public GameObject Button7;
+    public GameObject Button8;
+    public GameObject Button9;
+    public GameObject Button10;
+    public GameObject Button11;
     public CharacterData PlayerData;
     public GameStat GameStat;
     public MapCount Mapcount;
@@ -25,8 +33,6 @@ public class MapController : MonoBehaviour
 
     private void Awake()
     {
-        MorningMapName = new string[14] {"매표소", "기념품점", "기념품점", "대로", "광장", "광장", "바이킹", "바이킹", "롤러코스터", "롤러코스터", "매점", "매점", "회전목마", "관람차" };
-        LunchMapName = new string[4] { "대로", "기념품점", "매표소", "광장" };
         MapName = new string[4, 6] { { "1","1","1","관람차","1","1"},
                                      { "1","롤러코스터","1","매점","회전목마", "1"},
                                      { "귀신의집", "익스트림 어트렉션","광장","광장","1","1"},
@@ -55,7 +61,9 @@ public class MapController : MonoBehaviour
             case "거울의 미로": CurRow = 2; CurColumn = 0; break;
         }
         GameStat.CurPos = this.MapName[CurRow, CurColumn];
+        GameStat.IsMapChoiced = true;
         MapPanel.SetActive(false);
+        ButtonOff();
     }
 
     public void SetMap(string Map) //맵 UI 활성화
@@ -68,22 +76,23 @@ public class MapController : MonoBehaviour
             {
                 case "매표소": Button1.SetActive(true); break;
                 case "기념품점": Button2.SetActive(true); break;
-                case "대로": Button2.SetActive(true); break;
-                case "광장": Button2.SetActive(true); break;
-                case "매점": Button2.SetActive(true); break;
-                case "회전목마": Button2.SetActive(true); break;
-                case "관람차": Button2.SetActive(true); break;
-                case "익스트림 어트렉션": Button2.SetActive(true); break;
-                case "롤러코스터": Button2.SetActive(true); break;
-                case "바이킹": Button2.SetActive(true); break;
-                case "거울의 미로": Button2.SetActive(true); break;
+                case "대로": Button3.SetActive(true); break;
+                case "광장": Button4.SetActive(true); break;
+                case "매점": Button5.SetActive(true); break;
+                case "회전목마": Button6.SetActive(true); break;
+                case "관람차": Button7.SetActive(true); break;
+                case "익스트림 어트렉션": Button8.SetActive(true); break;
+                case "롤러코스터": Button9.SetActive(true); break;
+                case "바이킹": Button10.SetActive(true); break;
+                case "거울의 미로": Button11.SetActive(true); break;
+                case "1": break;
                      
             }
         }
         MapPanel.SetActive(true);
     }
 
-    public void SetButton()
+    public void SetButton() //MapPosition이 0일때 불러오는 함수
     {
         int[] xDir = { -1, 0, 1, 0 };
         int[] yDir = { 0, -1, 0, 1 };
@@ -99,7 +108,7 @@ public class MapController : MonoBehaviour
                 switch (Count)
                 {
                     case 0: SetMap(MapName[newX, newY]); break;
-                    case 1: SetMap(MapName[newX, newY]); break;
+                    case 1: if (GameStat.CurPos == "광장") SetMap("익스트림 어트렉션"); else SetMap(MapName[newX, newY]); break;
                     case 2: SetMap(MapName[newX, newY]); break;
                     case 3: SetMap(MapName[newX, newY]); break;
                 }
@@ -110,7 +119,21 @@ public class MapController : MonoBehaviour
         {
             CurColumn = 3;
         }
-        MapButton.SetActive(true);
 
+    }
+
+    public void ButtonOff()
+    {
+        Button1.SetActive(false);
+        Button2.SetActive(false);
+        Button3.SetActive(false);
+        Button4.SetActive(false);
+        Button5.SetActive(false);
+        Button6.SetActive(false);
+        Button7.SetActive(false);
+        Button8.SetActive(false);
+        Button9.SetActive(false);
+        Button10.SetActive(false);
+        Button11.SetActive(false);
     }
 }
