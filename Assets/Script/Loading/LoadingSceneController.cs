@@ -14,17 +14,12 @@ public class LoadingSceneController : MonoBehaviour
         nextScene = sceneName;
         SceneManager.LoadScene("Loading");
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         StartCoroutine(LoadSceneProcess());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     IEnumerator LoadSceneProcess()
     {
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);

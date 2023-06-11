@@ -3781,10 +3781,10 @@ MonoBehaviour:
   StoryText: {fileID: 1529055621}
   scrollRect: {fileID: 355436316}
   ChoiceUI: {fileID: 928628571}
-  ConCheck: {fileID: 0}
   GameData: {fileID: 0}
   MapController: {fileID: 32533128}
   GameStat: {fileID: 32533129}
+  BGMManager: {fileID: 1587409191}
   Typingspeed: 0
 --- !u!114 &697556547
 MonoBehaviour:
@@ -5102,7 +5102,6 @@ MonoBehaviour:
   SecondButton: {fileID: 905143436}
   ThirdButton: {fileID: 1707163526}
   FourthButton: {fileID: 2088140318}
-  GameData: {fileID: 697556547}
   DataMGR: {fileID: 0}
   TC: {fileID: 697556546}
 --- !u!4 &928628572
@@ -7946,6 +7945,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567474556}
   m_CullTransparentMesh: 1
+--- !u!1 &1587409189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587409190}
+  - component: {fileID: 1587409191}
+  m_Layer: 0
+  m_Name: BGMManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1587409190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587409189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5155544, y: 0.23114514, z: 1762.9188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587409191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587409189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74856e503e93fa54490d6073a2853a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MorningClip: {fileID: 0}
+  LunchClip: {fileID: 0}
+  EveningClip: {fileID: 0}
+  ButtonClickClip: {fileID: 0}
 --- !u!1 &1609092594
 GameObject:
   m_ObjectHideFlags: 0

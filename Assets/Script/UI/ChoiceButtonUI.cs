@@ -14,11 +14,9 @@ public class ChoiceButtonUI : MonoBehaviour
     public GameObject SecondButton;
     public GameObject ThirdButton;
     public GameObject FourthButton;
-    public ConditionChecker GameData;
     public DataManager DataMGR;
     public TextController TC;
     private IEnumerable<string> LCIDData;
-
 
     private void Awake()
     {

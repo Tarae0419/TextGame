@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
         EnableMapPanel = false;
         EnableStatPanel = false;
         TimeSet = false;
-
     }
 
     void Update()

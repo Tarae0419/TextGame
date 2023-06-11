@@ -29,8 +29,6 @@ public class MapController : MonoBehaviour
     public string[] LunchMapName;
     public string[,] MapName;
 
-
-
     private void Awake()
     {
         MapName = new string[4, 6] { { "1","1","1","관람차","1","1"},
@@ -40,7 +38,6 @@ public class MapController : MonoBehaviour
         Mapcount = MapCountManager.GetComponent<MapCount>();
         GameStat = gameObject.GetComponent<GameStat>(); 
     }
-
 
     public void MapUpdate(string MapName) //맵 이동 버튼 클릭시 현재 맵 변경
     {

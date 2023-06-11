@@ -13,10 +13,10 @@ public class TextController : MonoBehaviour
     public TextMeshProUGUI StoryText;
     public ScrollRect scrollRect;
     public ChoiceButtonUI ChoiceUI;
-    public ConditionChecker ConCheck;
     public DataManager GameData;
     public MapController MapController;
     public GameStat GameStat;
+    public BGMManager BGMManager;
     [HideInInspector]
     public float Typingspeed;
     private string SText;
@@ -26,7 +26,6 @@ public class TextController : MonoBehaviour
     private void Awake()
     {
         GameData = GameObject.Find("TextData").GetComponent<DataManager>();
-        ConCheck = gameObject.GetComponent<ConditionChecker>();
         Typingspeed = 0.00001f;
         
     }
@@ -75,6 +74,8 @@ public class TextController : MonoBehaviour
 
     IEnumerator Morning()
     {
+        BGMManager.StartMorningBGM(); // 아침 BGM 시작
+
         var Morningdata = GameData.TextCondition.Join(GameData.StoryText, tc=>tc.TextID, st=>st.ConID, (tc, st)=> new { TextCondition=tc, StoryText=st  })
                           .Where(x=> x.TextCondition.Time == "0"); //아침 데이터 가져오기
         foreach (var Curdata in Morningdata) //아침일 때 사이클
@@ -102,6 +103,9 @@ public class TextController : MonoBehaviour
 
     IEnumerator LunchBeginning()
     {
+        BGMManager.StartLunchBGM(); // 점심 BGM 시작
+
+
         GameStat.CurTime = "1"; // 점심으로 변경
         MapController.MapUpdate("광장");
 
@@ -186,6 +190,8 @@ public class TextController : MonoBehaviour
 
     IEnumerator evening()
     {
+        BGMManager.StartEveningBGM(); // 저녁 BGM 시작
+
         GameStat.CurTime = "4"; // 저녁으로 변경
 
         var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
