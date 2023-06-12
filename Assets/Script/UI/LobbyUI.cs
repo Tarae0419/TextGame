@@ -8,6 +8,7 @@ public class LobbyUI : MonoBehaviour
     public GameObject MultiPanel;
     public GameObject CharacterPanel;
     public GameObject ErrorPanel;
+    public GameObject OptionPanel;
     public GameObject ExitPanel;
 
     public void ExitGame()
@@ -42,6 +43,14 @@ public class LobbyUI : MonoBehaviour
             ErrorPanel.gameObject.SetActive(true);
         else
             ErrorPanel.gameObject.SetActive(false);
+    }
+
+    public void SetOptionPanel(int Select)
+    {
+        if (Select == 1)
+            OptionPanel.gameObject.SetActive(true);
+        else
+            OptionPanel.gameObject.SetActive(false);
     }
 
     public void SetExitPanel(int Select)
