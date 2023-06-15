@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class ChoiceButtonUI : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class ChoiceButtonUI : MonoBehaviour
     public GameObject SecondButton;
     public GameObject ThirdButton;
     public GameObject FourthButton;
+    private RectTransform First;
+    private RectTransform Second;
+    private RectTransform Third;
+    private RectTransform Fourth;
     public DataManager DataMGR;
     public TextController TC;
     private IEnumerable<string> LCIDData;
@@ -21,6 +26,10 @@ public class ChoiceButtonUI : MonoBehaviour
     private void Awake()
     {
         DataMGR = GameObject.Find("TextData").GetComponent<DataManager>();
+        First = FirstButton.GetComponent<RectTransform>();
+        Second = SecondButton.GetComponent<RectTransform>();
+        Third = ThirdButton.GetComponent<RectTransform>();
+        Fourth = FourthButton.GetComponent<RectTransform>();
     }
 
     public void SetChoiceText(string LCID) //  선택 버튼에 텍스트 띄우기
@@ -39,7 +48,6 @@ public class ChoiceButtonUI : MonoBehaviour
             if (SelectNum == 1)
             {
                 FirstButton.SetActive(true);
-                Debug.Log(a);
                 FirstText.text = DataMGR.ChoiceText.Where(x=>x.ChoiceTID == a).First().Choicetext;
             }
             else if (SelectNum == 2)
@@ -59,6 +67,8 @@ public class ChoiceButtonUI : MonoBehaviour
             }
             SelectNum++;
         }
+        Debug.Log("End");
+        SetButtonPosition(SelectNum - 1);
     }
 
     public void SelectChoice(int ButtonSelect) // 선택 버튼 함수
@@ -87,5 +97,29 @@ public class ChoiceButtonUI : MonoBehaviour
     public void SetButton() // 버튼 띄우기
     {
         ChoicePanel.gameObject.SetActive(true);
+    }
+
+    public void SetButtonPosition(int ButtonCount) // 버튼 위치 설정
+    {
+        if (ButtonCount == 1)
+            First.anchoredPosition = new Vector2(13, -727);
+        else if (ButtonCount == 2)
+        {
+            First.anchoredPosition = new Vector2(13, -667);
+            Second.anchoredPosition = new Vector2(13, -727);
+        }
+        else if(ButtonCount == 3) 
+        {
+            First.anchoredPosition = new Vector2(13, -607);
+            Second.anchoredPosition = new Vector2(13, -667);
+            Third.anchoredPosition = new Vector2(13, -727);
+        }
+        else if(ButtonCount == 4)
+        {
+            First.anchoredPosition = new Vector2(13, -547);
+            Second.anchoredPosition = new Vector2(13, -607);
+            Third.anchoredPosition = new Vector2(13, -667);
+            Fourth.anchoredPosition = new Vector2(13, -727);
+        }  
     }
 }

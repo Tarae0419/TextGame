@@ -1,7 +1,9 @@
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Option : MonoBehaviour
@@ -14,6 +16,7 @@ public class Option : MonoBehaviour
     private AudioSource audioSource;
     private List<string> FontOptions;
     public TMP_Dropdown fontSizeDropdown;
+    public TextMeshProUGUI FontLabel;
     public TMP_Dropdown ResolutionDropdown;
     public Scrollbar BGMScrollbar;
     public Scrollbar SoundEeffectScrollbar;
@@ -21,10 +24,11 @@ public class Option : MonoBehaviour
     public TextMeshProUGUI TestText;
     private ResolutionData ResolutionData;
     public BGMManager BGMManager;
-    Resolution[] resolutions;
+    public GameManager GameManager;
 
     void Start()
     {
+        Debug.Log(PlayerPrefs.GetInt("FontSize"));
         ResolutionData = new ResolutionData();
 
         BGMManager.BGMSource.volume = BGMScrollbar.value;
@@ -33,6 +37,8 @@ public class Option : MonoBehaviour
         SetOptionDropdown();
         SetResolutionDropdown();
 
+        SetVolume();
+        SetFont();
 
         BGMScrollbar.onValueChanged.AddListener(delegate { ChangeBGMVolume(); });
         SoundEeffectScrollbar.onValueChanged.AddListener(delegate { ChangeClickVolume(); });
@@ -41,22 +47,54 @@ public class Option : MonoBehaviour
         ApplyButton.onClick.AddListener(delegate { ApplyResolution(); });
     }
 
+    public void SetVolume()
+    {
+        BGMManager.BGMSource.volume = PlayerPrefs.GetFloat("BGMVolume");
+        BGMManager.ButtonClickSource.volume = PlayerPrefs.GetFloat("ClickVolume");
+        BGMScrollbar.value = PlayerPrefs.GetFloat("BGMVolume");
+        SoundEeffectScrollbar.value = PlayerPrefs.GetFloat("ClickVolume");
+    }
+
+    public void SetFont()
+    {
+        var FontSize = PlayerPrefs.GetInt("FontSize");
+        TestText.fontSize = FontSize;
+
+
+        for (int i = 0; i < fontSizeDropdown.options.Count; i++)
+        {
+            string optionText = fontSizeDropdown.options[i].text;
+
+            if (int.TryParse(optionText, out int fontSize) && fontSize == FontSize)
+            {
+                fontSizeDropdown.value = i;
+                break;
+            }
+        }
+    }
+
     public void ChangeBGMVolume()
     {
         PlayerPrefs.SetFloat("BGMVolume", BGMScrollbar.value);
-        BGMManager.BGMSource.volume = BGMScrollbar.value;
+        BGMManager.BGMSource.volume = PlayerPrefs.GetFloat("BGMVolume");
     }
 
     public void ChangeClickVolume()
     {
         PlayerPrefs.SetFloat("ClickVolume", SoundEeffectScrollbar.value);
-        BGMManager.ButtonClickSource.volume = SoundEeffectScrollbar.value;
+        BGMManager.ButtonClickSource.volume = PlayerPrefs.GetFloat("ClickVolume");
     }
 
     public void ChangeFontSize()
     {
-        PlayerPrefs.SetInt("FontSize", int.Parse(fontSizeDropdown.options[fontSizeDropdown.value].text));
-        TestText.fontSize = int.Parse(fontSizeDropdown.options[fontSizeDropdown.value].text);
+        string FontSizeString = fontSizeDropdown.options[fontSizeDropdown.value].text;
+        int FontSize = int.Parse(FontSizeString);
+
+
+        PlayerPrefs.SetInt("FontSize", FontSize);
+        TestText.fontSize = PlayerPrefs.GetInt("FontSize");
+        if (SceneManager.GetActiveScene().name == "TextScene")
+            GameManager.SetFont();
     }
 
     public void SetOptionDropdown()

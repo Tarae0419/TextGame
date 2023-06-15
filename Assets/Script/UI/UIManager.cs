@@ -14,9 +14,11 @@ public class UIManager : MonoBehaviour
     public Image MapPanel;
     public Image StatPanel;
     public Image Background;
+    public Image Sun;
     public GameObject EndingCreditPanel;
     public GameObject EndingData;
     public GameObject GiveUpPanel;
+    public GameObject OptionPanel;
     [HideInInspector]
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
@@ -180,15 +182,29 @@ public class UIManager : MonoBehaviour
             GiveUpPanel.gameObject.SetActive(true);
     }
 
+    public void SetOptionPane(int Select)
+    {
+        if (Select == 0)
+            OptionPanel.gameObject.SetActive(false);
+        else if(Select == 1)
+            OptionPanel.gameObject.SetActive(true);
+    }
+
     public void ChangeBackground() // 배경 변경
     {
         if(GameStat.CurTime == "1")
         {
-            Background = Resources.Load<Image>("");
+            Sprite loadedImage = Resources.Load<Sprite>("Lunch");
+            Background.sprite = loadedImage;
+            Sun.rectTransform.anchoredPosition = new Vector2(173, -56);
         }
         else if(GameStat.CurTime == "5")
         {
-            Background = Resources.Load<Image>("");
+            Sprite loadedImage = Resources.Load<Sprite>("Evening");
+            Background.sprite = loadedImage;
+            Sun.rectTransform.anchoredPosition = new Vector2(307, -108);
+            Image aa = Background.GetComponent<Image>();
+
         }
     }
 

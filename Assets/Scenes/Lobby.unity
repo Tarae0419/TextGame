@@ -8165,7 +8165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.49998, y: 0}
   m_SizeDelta: {x: 375, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1271068062
@@ -9561,12 +9561,14 @@ MonoBehaviour:
   ClickVolume: 0
   FontSize: 0
   fontSizeDropdown: {fileID: 2099705946}
+  FontLabel: {fileID: 102174733}
   ResolutionDropdown: {fileID: 881845059}
   BGMScrollbar: {fileID: 1936091101}
   SoundEeffectScrollbar: {fileID: 246597853}
   ApplyButton: {fileID: 2016975617}
   TestText: {fileID: 989907685}
   BGMManager: {fileID: 1762478065}
+  GameManager: {fileID: 0}
 --- !u!1 &1484042517
 GameObject:
   m_ObjectHideFlags: 0
@@ -10056,6 +10058,7 @@ MonoBehaviour:
   LunchClip: {fileID: 8300000, guid: b0dc64ebe832f1d4696de5764ab0bc98, type: 3}
   EveningClip: {fileID: 8300000, guid: 2bc60cb6347efec45a07b98e4570bc51, type: 3}
   ButtonClickClip: {fileID: 8300000, guid: 3c5bba0e2101d994fbe01731b74494a6, type: 3}
+  LobbyClip: {fileID: 8300000, guid: e52607aa6a17a1f41908361fbd24b279, type: 3}
   BGMSource: {fileID: 0}
   ButtonClickSource: {fileID: 0}
 --- !u!4 &1762478066

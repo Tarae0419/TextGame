@@ -66,19 +66,26 @@ public class TextController : MonoBehaviour
         resultText = ReturnData;
     }
     
-    IEnumerator GameStart()
+    IEnumerator GameStart() //시작 함수
     {
-        //yield return Morning();
-        //yield return LunchBeginning();
-        //yield return LunchMiddle();
-        //yield return evening();
-        yield return UIManager.Fade();
+        BGMManager.BGMSource.Stop();
+        yield return StartFade();
+        yield return Morning();
+        ClearText();
+        BGMManager.BGMSource.Stop();
+        yield return LunchBeginning();
+        yield return LunchMiddle();
+        ClearText();
+        BGMManager.BGMSource.Stop();
+        yield return Evening();
+        ClearText();   
         yield return UIManager.SetEndingCredit();
         UIManager.EndingResult();
     }
 
     IEnumerator StartFade()
     {
+        UIManager.textComponent.gameObject.SetActive(true);
         yield return UIManager.Fade();
         yield return new WaitForSeconds(1f);
         UIManager.textComponent.gameObject.SetActive(false);
@@ -87,8 +94,6 @@ public class TextController : MonoBehaviour
     IEnumerator Morning()
     {
         BGMManager.StartMorningBGM(); // 아침 BGM 시작
-
-        yield return StartFade();
 
         var Morningdata = GameData.TextCondition.Join(GameData.StoryText, tc=>tc.TextID, st=>st.ConID, (tc, st)=> new { TextCondition=tc, StoryText=st  })
                           .Where(x=> x.TextCondition.Time == "0"); //아침 데이터 가져오기
@@ -100,6 +105,7 @@ public class TextController : MonoBehaviour
             yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
 
             yield return new WaitForSeconds(0.5f);
+            Debug.Log(Curdata.StoryText.LinkedChoiceID);
             ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
             ChoiceUI.SetButton();
 
@@ -122,6 +128,8 @@ public class TextController : MonoBehaviour
 
         GameStat.CurTime = "1"; // 점심으로 변경
         MapController.MapUpdate("광장");
+
+        UIManager.ChangeBackground(); //이미지 변경
 
         yield return StartFade();
 
@@ -234,7 +242,7 @@ public class TextController : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
-    IEnumerator evening()
+    IEnumerator Evening()
     {
 
         /*if (단서가 없으면)
@@ -242,7 +250,7 @@ public class TextController : MonoBehaviour
         BGMManager.StartEveningBGM(); // 저녁 BGM 시작
 
         GameStat.CurTime = "5"; // 저녁으로 변경
-
+        UIManager.ChangeBackground(); //이미지 변경
         yield return StartFade();
 
         var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
@@ -298,5 +306,10 @@ public class TextController : MonoBehaviour
         {
             yield return null;
         }
+    }
+
+    public void ClearText()
+    {
+        StoryText.text = "";
     }
 }

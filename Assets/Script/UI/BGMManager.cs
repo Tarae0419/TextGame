@@ -11,6 +11,7 @@ public class BGMManager : MonoBehaviour
     public AudioClip LunchClip;
     public AudioClip EveningClip;
     public AudioClip ButtonClickClip;
+    public AudioClip LobbyClip;
     public AudioSource BGMSource;
     public AudioSource ButtonClickSource;
 
@@ -29,11 +30,17 @@ public class BGMManager : MonoBehaviour
         ButtonClickSource.clip = ButtonClickClip;
         BGMSource.loop = true;
 
+        StartLobbyBGM();
     }
-
+    public void StartLobbyBGM()
+    {
+        BGMSource.clip = LobbyClip;
+        BGMSource.Play();
+    }
     public void StartMorningBGM()
     {
-        BGMSource.clip = MorningClip;       
+        BGMSource.Stop();
+        BGMSource.clip = MorningClip;
         BGMSource.Play();
     }
     public void StartLunchBGM()

@@ -18,7 +18,7 @@ public class GameStat : MonoBehaviour
     private void Awake()
     {
         GameTurn = 1;
-        CurTime = "1";
+        CurTime = "0";
         CurPos = "¸ÅÇ¥¼Ò";
         isNPC = false;
         NPCPosition = new NPCMove();
