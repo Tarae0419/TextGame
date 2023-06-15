@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyUI : MonoBehaviour
 {
     public GameObject LobbyPanel;
     public GameObject MultiPanel;
+    public GameObject ScenarioPanel;
     public GameObject CharacterPanel;
     public GameObject ErrorPanel;
     public GameObject OptionPanel;
@@ -23,12 +25,26 @@ public class LobbyUI : MonoBehaviour
         else
             MultiPanel.gameObject.SetActive(false);
     }
+
+    public void SetScenarioPanel(int Select)
+    {
+        if (Select == 1)
+        {
+            ScenarioPanel.gameObject.SetActive(true);
+            LobbyPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            ScenarioPanel.gameObject.SetActive(false);
+            LobbyPanel.gameObject.SetActive(true);
+        }
+    }
     public void SetCharcterPanel(int Select)
     {
         if (Select == 1)
         {
             CharacterPanel.gameObject.SetActive(true);
-            LobbyPanel.gameObject.SetActive(false);
+            ScenarioPanel.gameObject.SetActive(false);
         }
         else
         {

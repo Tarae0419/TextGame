@@ -38,7 +38,7 @@ public class GameStat : MonoBehaviour
     //NPC 위치 확인 후 해당 NPC 이름 반환
     public string CheckNPC(int Turn)
     {
-           
+        Debug.Log(Turn);
         if (CurPos == NPCPosition.RangerPos[Turn])
         {
             isNPC = true;  return "0";

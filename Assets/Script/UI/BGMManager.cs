@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Threading.Tasks;
 
 public class BGMManager : MonoBehaviour
@@ -10,22 +11,25 @@ public class BGMManager : MonoBehaviour
     public AudioClip LunchClip;
     public AudioClip EveningClip;
     public AudioClip ButtonClickClip;
-    private AudioSource BGMSource;
-    private AudioSource ButtonClickSource;
-    private Option Option;
+    public AudioSource BGMSource;
+    public AudioSource ButtonClickSource;
 
-    private void Start()
+    private void Awake()
     {
         BGMSource = gameObject.AddComponent<AudioSource>();
         ButtonClickSource = gameObject.AddComponent<AudioSource>();
 
+        Button[] buttons = FindObjectsOfType<Button>(); 
 
-        Option = GameObject.Find("LobbyData").GetComponent<Option>();
-        BGMSource.volume = Option.BGMVolume;
-        ButtonClickSource.volume = Option.ClickVolume;
+        foreach (Button button in buttons)
+        {
+            button.onClick.AddListener(ButtonClickSound);
+        }
 
         ButtonClickSource.clip = ButtonClickClip;
         BGMSource.loop = true;
+        
+        
     }
 
     public void StartMorningBGM()

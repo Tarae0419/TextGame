@@ -11,6 +11,7 @@ public class Option : MonoBehaviour
     public int FontSize;
     private int currentResolutionIndex;
     private int selectedResolutionIndex;
+    private AudioSource audioSource;
     private List<string> FontOptions;
     public TMP_Dropdown fontSizeDropdown;
     public TMP_Dropdown ResolutionDropdown;
@@ -19,11 +20,15 @@ public class Option : MonoBehaviour
     public Button ApplyButton;
     public TextMeshProUGUI TestText;
     private ResolutionData ResolutionData;
+    public BGMManager BGMManager;
     Resolution[] resolutions;
 
     void Start()
     {
         ResolutionData = new ResolutionData();
+
+        BGMManager.BGMSource.volume = BGMScrollbar.value;
+        BGMManager.ButtonClickSource.volume = SoundEeffectScrollbar.value;
 
         SetOptionDropdown();
         SetResolutionDropdown();
@@ -38,23 +43,25 @@ public class Option : MonoBehaviour
 
     public void ChangeBGMVolume()
     {
-        BGMVolume = BGMScrollbar.value;
+        PlayerPrefs.SetFloat("BGMVolume", BGMScrollbar.value);
+        BGMManager.BGMSource.volume = BGMScrollbar.value;
     }
 
     public void ChangeClickVolume()
     {
-        ClickVolume = BGMVolume;
+        PlayerPrefs.SetFloat("ClickVolume", SoundEeffectScrollbar.value);
+        BGMManager.ButtonClickSource.volume = SoundEeffectScrollbar.value;
     }
 
     public void ChangeFontSize()
     {
-        FontSize = int.Parse(fontSizeDropdown.options[fontSizeDropdown.value].text);
+        PlayerPrefs.SetInt("FontSize", int.Parse(fontSizeDropdown.options[fontSizeDropdown.value].text));
         TestText.fontSize = int.Parse(fontSizeDropdown.options[fontSizeDropdown.value].text);
     }
 
     public void SetOptionDropdown()
     {
-        FontOptions = new List<string> { "17", "18", "19", "20", "21", "22" };
+        FontOptions = new List<string> { "17", "18", "19", "20", "21", "22", "23"};
         fontSizeDropdown.ClearOptions();
         fontSizeDropdown.AddOptions(FontOptions);
     }
@@ -92,4 +99,5 @@ public class Option : MonoBehaviour
     {
         Screen.SetResolution(ResolutionData.width[selectedResolutionIndex], ResolutionData.height[selectedResolutionIndex], Screen.fullScreen);
     }
+
 }

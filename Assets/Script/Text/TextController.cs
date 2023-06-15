@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class TextController : MonoBehaviour
     public MapController MapController;
     public GameStat GameStat;
     public BGMManager BGMManager;
+    public UIManager UIManager;
     [HideInInspector]
     public float Typingspeed;
     private string SText;
@@ -72,9 +74,18 @@ public class TextController : MonoBehaviour
         yield return evening();
     }
 
+    IEnumerator StartFade()
+    {
+        yield return UIManager.Fade();
+        yield return new WaitForSeconds(1f);
+        UIManager.textComponent.gameObject.SetActive(false);
+    }
+
     IEnumerator Morning()
     {
         BGMManager.StartMorningBGM(); // 아침 BGM 시작
+
+        yield return StartFade();
 
         var Morningdata = GameData.TextCondition.Join(GameData.StoryText, tc=>tc.TextID, st=>st.ConID, (tc, st)=> new { TextCondition=tc, StoryText=st  })
                           .Where(x=> x.TextCondition.Time == "0"); //아침 데이터 가져오기
@@ -108,6 +119,8 @@ public class TextController : MonoBehaviour
 
         GameStat.CurTime = "1"; // 점심으로 변경
         MapController.MapUpdate("광장");
+
+        yield return StartFade();
 
         var Lunchdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                         .Where(x => x.TextCondition.Time == "1"); //점심 강제텍스트 가져오기
@@ -152,32 +165,31 @@ public class TextController : MonoBehaviour
         for (int i = 0; i < 5; i++) // 점심 중반부분 사이클
         {
             GameStat.CurTime = "2";
-            Debug.Log(GameStat.CheckNPC(i));
-            Debug.Log(i);
 
             var MapData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-                        .Where(x => x.TextCondition.Time == "2" && x.TextCondition.Position == GameStat.CurPos);          
+                        .Where(x => x.TextCondition.Time == "2" && x.TextCondition.Position == GameStat.CurPos);
 
-            foreach (var Curdata in MapData)
+
+            var Curdata = MapData.First();
+                         
+            IsChoiced = false;
+               
+            GameStat.IsMapChoiced = false;
+
+            yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
+               
+            yield return new WaitForSeconds(0.5f);
+                 
+            if (Curdata.TextCondition.Map == "0")
             {
-                IsChoiced = false;
-                GameStat.IsMapChoiced = false;
-                yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
-
-                yield return new WaitForSeconds(0.5f);
-                
-
-                if (Curdata.TextCondition.Map == "0")
-                {
-                    yield return ClueCylce(i);
-                }
-                else
-                {
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    MapController.SetButton();
-                    yield return WaitMapSelect();
-                }   
+                yield return ClueCylce(i);
+            }            
+            else    
+            {
+                SText = "";              
+                scrollRect.verticalNormalizedPosition = 1f;              
+                MapController.SetButton();               
+                yield return WaitMapSelect();           
             }
         }
         yield return new WaitForSeconds(1f);
@@ -185,6 +197,36 @@ public class TextController : MonoBehaviour
 
     IEnumerator LunchLate()
     {
+        /*if (단서가 있으면)
+            yield break; */
+
+        GameStat.CurTime = "4";
+        MapController.MapUpdate("광장");
+
+        var LunchLatedata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                         .Where(x => x.TextCondition.Time == "4"); //점심 후반 데이터 가져오기
+
+        foreach (var Curdata in LunchLatedata) //아침일 때 사이클
+        {
+            IsChoiced = false;
+            GameStat.IsMapChoiced = false;
+
+            yield return TypingEffect(Curdata.StoryText.DialogList); // 본문 출력
+
+            yield return new WaitForSeconds(0.5f);
+            ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
+            ChoiceUI.SetButton();
+
+            yield return WaitChoiceSelect();
+            SText = "";
+            scrollRect.verticalNormalizedPosition = 1f;
+            yield return TypingEffect(resultText); // 결과 본문 출력
+            if (Curdata.TextCondition.Map == "1")
+            {
+                MapController.SetMap(Curdata.TextCondition.MapPosition);
+                yield return WaitMapSelect();
+            }
+        }
         yield return new WaitForSeconds(1f);
     }
 
@@ -192,7 +234,9 @@ public class TextController : MonoBehaviour
     {
         BGMManager.StartEveningBGM(); // 저녁 BGM 시작
 
-        GameStat.CurTime = "4"; // 저녁으로 변경
+        GameStat.CurTime = "5"; // 저녁으로 변경
+
+        yield return StartFade();
 
         var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                          .Where(x => x.TextCondition.Time == "4"); // 저녁 강제텍스트 가져오기

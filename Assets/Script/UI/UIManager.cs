@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     private bool Timer;
     private float UITime;
     private float TimerTime;
+    public TextMeshProUGUI textComponent;
+    public GameStat GameStat;
 
     void Awake()
     {
@@ -112,9 +114,46 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetTimer()
+    public IEnumerator Fade()
     {
-        Timer = true;
-    }
+        string text;
+        string bold;
+        if (GameStat.CurTime == "0")
+        {
+            text = "놀이공원에 아침이 찾아왔습니다.";
+            bold = "<b>아침</b>";
+            textComponent.text = text.Replace("아침", bold);
+        }
+            
+        else if(GameStat.CurTime == "1")
+        {
+            text = "놀이공원에 점심이 찾아왔습니다.";
+            bold = "<b>점심</b>";
+            textComponent.text = text.Replace("점심", bold);
+        }
+        else if(GameStat.CurTime == "5")
+        {
+            text = "놀이공원에 저녁이 찾아왔습니다.";
+            bold = "<b>저녁</b>";
+            textComponent.text = text.Replace("저녁", bold);
+        }
+            
 
+        float fadeIn = 0;
+        while(fadeIn < 1.0f)
+        {
+            fadeIn += 0.05f;
+            yield return new WaitForSeconds(0.1f);
+            textComponent.color = new Color(0,0,0, fadeIn);
+        }
+
+        yield return new WaitForSeconds(2f);
+        float fadeOut = 0;
+        while (fadeOut < 1.0f)
+        {
+            fadeOut += 0.05f;
+            yield return new WaitForSeconds(0.1f);
+            textComponent.color = new Color(0, 0, 0, 1 - fadeOut);
+        }
+    }
 }
