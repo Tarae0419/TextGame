@@ -4,7 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,16 +13,18 @@ public class UIManager : MonoBehaviour
     public Image InventoryPanel;
     public Image MapPanel;
     public Image StatPanel;
-    public Image TimerBar;
+    public Image Background;
+    public GameObject EndingCreditPanel;
+    public GameObject EndingData;
+    public GameObject GiveUpPanel;
     [HideInInspector]
     public bool EnableInventoryPanel;
     public bool EnableMapPanel;
     public bool EnableStatPanel;
     private bool TimeSet;
-    private bool Timer;
     private float UITime;
-    private float TimerTime;
     public TextMeshProUGUI textComponent;
+    public TextMeshProUGUI PlaytimeText;
     public GameStat GameStat;
 
     void Awake()
@@ -41,7 +44,7 @@ public class UIManager : MonoBehaviour
             UITime += Time.deltaTime * 1500f;
             InventoryPanel.gameObject.SetActive(true);
             InventoryPanel.rectTransform.anchoredPosition = new Vector2(0, -400 + UITime);
-            
+
             if (InventoryPanel.rectTransform.anchoredPosition.y >= 0)
             {
                 TimeSet = false;
@@ -61,17 +64,6 @@ public class UIManager : MonoBehaviour
         }
         else
             UITime = 0f;
-
-        // set timer
-        if (Timer == true)
-        {
-            TimerTime += Time.deltaTime;
-            TimerBar.fillAmount = 1 - TimerTime / 2;
-            if (TimerBar.fillAmount == 0)
-            {
-                Timer = false;
-            }
-        }
     }
 
     //ItemUI ON/OFF
@@ -89,7 +81,6 @@ public class UIManager : MonoBehaviour
             TimeSet = true;
         }
 
-        //set mapUI(꾹 눌렀을때? or 버튼?)
         if (EnableMapPanel == false && UINum == 2)
         {
             MapPanel.gameObject.SetActive(true);
@@ -156,4 +147,49 @@ public class UIManager : MonoBehaviour
             textComponent.color = new Color(0, 0, 0, 1 - fadeOut);
         }
     }
+
+    public void GoMain()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public IEnumerator SetEndingCredit()
+    {
+        EndingCreditPanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+    }
+
+    public void EndingResult()
+    {
+        PlaytimeText.text = GameStat.GetPlayTime();
+        EndingCreditPanel.gameObject.SetActive(false);
+
+        if(GameStat.IsClear == true)
+            EndingData.gameObject.SetActive(true);
+        else
+        {
+            //실패 UI 띄우기
+        }
+    }
+
+    public void SetGiveUpPanel(int Select)
+    {
+        if(Select  == 0)
+            GiveUpPanel.gameObject.SetActive(false);
+        else
+            GiveUpPanel.gameObject.SetActive(true);
+    }
+
+    public void ChangeBackground() // 배경 변경
+    {
+        if(GameStat.CurTime == "1")
+        {
+            Background = Resources.Load<Image>("");
+        }
+        else if(GameStat.CurTime == "5")
+        {
+            Background = Resources.Load<Image>("");
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameStat : MonoBehaviour
@@ -11,17 +12,19 @@ public class GameStat : MonoBehaviour
     public int GameTurn;
     public bool isNPC;
     public bool IsMapChoiced;
+    public bool IsClear;
     public NPCMove NPCPosition;
 
     private void Awake()
     {
         GameTurn = 1;
-        CurTime = "0";
+        CurTime = "1";
         CurPos = "¸ÅÇ¥¼Ò";
         isNPC = false;
         NPCPosition = new NPCMove();
         PlayTime = 0;
         IsMapChoiced = false;
+        IsClear = false;
     }
 
     private void Update()

@@ -70,8 +70,11 @@ public class TextController : MonoBehaviour
     {
         //yield return Morning();
         //yield return LunchBeginning();
-        yield return LunchMiddle();
-        yield return evening();
+        //yield return LunchMiddle();
+        //yield return evening();
+        yield return UIManager.Fade();
+        yield return UIManager.SetEndingCredit();
+        UIManager.EndingResult();
     }
 
     IEnumerator StartFade()
@@ -197,8 +200,6 @@ public class TextController : MonoBehaviour
 
     IEnumerator LunchLate()
     {
-        /*if (단서가 있으면)
-            yield break; */
 
         GameStat.CurTime = "4";
         MapController.MapUpdate("광장");
@@ -206,7 +207,7 @@ public class TextController : MonoBehaviour
         var LunchLatedata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                          .Where(x => x.TextCondition.Time == "4"); //점심 후반 데이터 가져오기
 
-        foreach (var Curdata in LunchLatedata) //아침일 때 사이클
+        foreach (var Curdata in LunchLatedata)
         {
             IsChoiced = false;
             GameStat.IsMapChoiced = false;
@@ -223,15 +224,21 @@ public class TextController : MonoBehaviour
             yield return TypingEffect(resultText); // 결과 본문 출력
             if (Curdata.TextCondition.Map == "1")
             {
+                /*if (단서가 있으면)
+                yield break; */
                 MapController.SetMap(Curdata.TextCondition.MapPosition);
                 yield return WaitMapSelect();
             }
+
         }
         yield return new WaitForSeconds(1f);
     }
 
     IEnumerator evening()
     {
+
+        /*if (단서가 없으면)
+            yield break; */
         BGMManager.StartEveningBGM(); // 저녁 BGM 시작
 
         GameStat.CurTime = "5"; // 저녁으로 변경
@@ -239,7 +246,7 @@ public class TextController : MonoBehaviour
         yield return StartFade();
 
         var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-                         .Where(x => x.TextCondition.Time == "4"); // 저녁 강제텍스트 가져오기
+                         .Where(x => x.TextCondition.Time == "5"); // 저녁 강제텍스트 가져오기
 
         foreach (var Curdata in Dinnerdata) // 저녁 사이클
         {

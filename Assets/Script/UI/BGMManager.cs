@@ -28,8 +28,7 @@ public class BGMManager : MonoBehaviour
 
         ButtonClickSource.clip = ButtonClickClip;
         BGMSource.loop = true;
-        
-        
+
     }
 
     public void StartMorningBGM()
@@ -54,6 +53,11 @@ public class BGMManager : MonoBehaviour
     public void ButtonClickSound()
     {
         ButtonClickSource.Play();
+
+    }
+
+    public void SetBackgroundUI()
+    {
 
     }
 }
