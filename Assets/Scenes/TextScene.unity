@@ -6285,6 +6285,8 @@ MonoBehaviour:
   BGMManager: {fileID: 1587409191}
   UIManager: {fileID: 928628573}
   Typingspeed: 0
+  HaveClue: 0
+  IsEnd: 0
 --- !u!114 &697556547
 MonoBehaviour:
   m_ObjectHideFlags: 0

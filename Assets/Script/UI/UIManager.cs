@@ -198,7 +198,7 @@ public class UIManager : MonoBehaviour
             Background.sprite = loadedImage;
             Sun.rectTransform.anchoredPosition = new Vector2(173, -56);
         }
-        else if(GameStat.CurTime == "5")
+        else if(GameStat.CurTime == "4")
         {
             Sprite loadedImage = Resources.Load<Sprite>("Evening");
             Background.sprite = loadedImage;

@@ -77,8 +77,16 @@ public class ChoiceButtonUI : MonoBehaviour
 
         foreach (var a in LCIDData)
         {
+            var LInkedRID = DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().LinkedResultID;
             if (ResultNum == ButtonSelect)
-            TC.ResultText(DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().LinkedResultID);
+            {               
+                TC.ResultText(LInkedRID);
+                if (LInkedRID == "Res_33" || LInkedRID == "Res_37" || LInkedRID == "Res_40")
+                    TC.HaveClue = true;
+                if(LInkedRID == "Res_43")
+                    TC.IsEnd = true;
+            }
+            
             ResultNum++;
         }
         ButtonOff();
