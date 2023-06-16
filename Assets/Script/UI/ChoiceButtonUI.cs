@@ -67,7 +67,6 @@ public class ChoiceButtonUI : MonoBehaviour
             }
             SelectNum++;
         }
-        Debug.Log("End");
         SetButtonPosition(SelectNum - 1);
     }
 
@@ -79,14 +78,16 @@ public class ChoiceButtonUI : MonoBehaviour
         {
             var LInkedRID = DataMGR.ChoiceText.Where(x => x.ChoiceTID == a).First().LinkedResultID;
             if (ResultNum == ButtonSelect)
-            {               
+            {
+                TC.PreviousResult = LInkedRID;
                 TC.ResultText(LInkedRID);
                 if (LInkedRID == "Res_33" || LInkedRID == "Res_37" || LInkedRID == "Res_40")
                     TC.HaveClue = true;
                 if(LInkedRID == "Res_43")
                     TC.IsEnd = true;
-            }
-            
+                GetItem(LInkedRID);
+
+            }            
             ResultNum++;
         }
         ButtonOff();
@@ -129,5 +130,20 @@ public class ChoiceButtonUI : MonoBehaviour
             Third.anchoredPosition = new Vector2(13, -667);
             Fourth.anchoredPosition = new Vector2(13, -727);
         }  
+    }
+
+    public void GetItem(string LID)
+    {
+        if (LID == "Res_46")
+            TC.HaveSight = true;
+        if (LID == "Res_49")
+            TC.HaveConfidence = true;
+        if (LID == "Res_51")
+            TC.HaveSense = true;
+        if (LID == "Res_52" && TC.HaveSight == false)
+            TC.HaveDetection = true;
+        if (LID == "Res_58")
+            TC.HaveDog = true;
+
     }
 }

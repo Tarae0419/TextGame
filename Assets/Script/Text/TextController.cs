@@ -26,12 +26,20 @@ public class TextController : MonoBehaviour
     private bool IsChoiced;
     public bool HaveClue;
     public bool IsEnd;
+    public bool HaveSight;
+    public bool HaveConfidence;
+    public bool HaveDetection;
+    public bool HaveSense;
+    public bool HaveDog;
+    public string PreviousResult;
 
     private void Awake()
     {
         GameData = GameObject.Find("TextData").GetComponent<DataManager>();
-        Typingspeed = 0.00001f;
-        
+        Typingspeed = 0.000001f;
+        HaveClue = true;
+
+
     }
     public void Start()
     {
@@ -70,7 +78,7 @@ public class TextController : MonoBehaviour
     
     IEnumerator GameStart() //시작 함수
     {
-        BGMManager.BGMSource.Stop();
+        //BGMManager.BGMSource.Stop();
         //yield return StartFade();
         //yield return Morning();
         //ClearText();
@@ -81,6 +89,7 @@ public class TextController : MonoBehaviour
         BGMManager.BGMSource.Stop();
         yield return Evening();
         yield return EveningMiddle();
+        yield return Ending();
         ClearText();   
         yield return UIManager.SetEndingCredit();
         UIManager.EndingResult();
@@ -116,6 +125,7 @@ public class TextController : MonoBehaviour
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
+            yield return new WaitForSeconds(1f);
             if (Curdata.TextCondition.Map == "1")
             {
                 MapController.SetMap(Curdata.TextCondition.MapPosition);
@@ -154,6 +164,7 @@ public class TextController : MonoBehaviour
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
+            yield return new WaitForSeconds(1f);
             if (Curdata.TextCondition.Map == "1")
             {
                 GameStat.IsMapChoiced = false;
@@ -174,15 +185,18 @@ public class TextController : MonoBehaviour
 
     IEnumerator LunchMiddle()
     {
-        MapController.MapUpdate("광장");
+
+        GameStat.CurTime = "2";
 
         for (int i = 0; i < 5; i++) // 점심 중반부분 사이클
         {
-            GameStat.CurTime = "2";
+            GameStat.CheckNPC(i);
+
+            if (HaveClue == true && GameStat.CurPos == "광장")
+                yield break;
 
             var MapData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                         .Where(x => x.TextCondition.Time == "2" && x.TextCondition.Position == GameStat.CurPos);
-
 
             var Curdata = MapData.First();
                          
@@ -231,6 +245,17 @@ public class TextController : MonoBehaviour
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
+            yield return new WaitForSeconds(1f);
+            if (HaveClue == true)
+            {
+                string clueText = "<b>단서</b>를 얻었다.\n\n";
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(clueText);
+                
+                yield return new WaitForSeconds(2f);
+            }
+                
             MapController.SetButton();
             yield return WaitMapSelect();
         }
@@ -279,6 +304,7 @@ public class TextController : MonoBehaviour
             SText = "";
             scrollRect.verticalNormalizedPosition = 1f;
             yield return TypingEffect(resultText); // 결과 본문 출력
+            yield return new WaitForSeconds(1f);
             if (Curdata.TextCondition.Map == "1")
             {             
                 MapController.SetMap(Curdata.TextCondition.MapPosition);
@@ -291,30 +317,227 @@ public class TextController : MonoBehaviour
 
     IEnumerator EveningMiddle()
     {
-
+        SText = "";
+        int ConIDnum= 54;
         if (HaveClue == false || IsEnd == true)
             yield break;
 
         GameStat.CurTime = "5";
+        
 
-        var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-                         .Where(x => x.TextCondition.Time == "5"); // 전투 텍스트 가져오기
-
-        foreach (var Curdata in Dinnerdata) // 저녁 사이클
+        while(true)
         {
+            Debug.Log(PreviousResult);
 
+            var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                         .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == ConIDnum); // 전투 텍스트 가져오기
+
+            if (PreviousResult == "Res_45")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID >= 54);
+            }
+            else if (PreviousResult == "Res_46" || PreviousResult == "Res_47" || PreviousResult == "Res_48" || PreviousResult == "Res_49" || PreviousResult == "Res_50" || PreviousResult == "Res_51")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 58);
+            }
+            else if (PreviousResult == "Res_52" || PreviousResult == "Res_54")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 63);
+            }
+            else if (PreviousResult == "Res_53" || PreviousResult == "Res_66")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 59);
+            }
+            else if (PreviousResult == "Res_56")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 61);
+            }
+            else if (PreviousResult == "Res_59")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 84);
+            }
+            else if (PreviousResult == "Res_64")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 87);
+            }
+            else if (PreviousResult == "Res_65")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 85);
+            }
+            else if (PreviousResult == "Res_67")
+            {
+                break;
+            }
+            else if (PreviousResult == "Res_55" || PreviousResult == "Res_58")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 68);
+            }
+            else if (PreviousResult == "Res_63" || PreviousResult == "Res_68" || PreviousResult == "Res_69" || PreviousResult == "Res_70")
+            {
+                Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 55);
+            }
+
+
+            foreach (var Curdata in Dinnerdata) // 저녁 사이클
+            {
+                Debug.Log(Curdata.TextCondition.ConID);
+                ConIDnum = Curdata.TextCondition.ConID;
+                IsChoiced = false;
+
+                yield return TypingEffect(Curdata.StoryText.DialogList);
+
+                if (Curdata.StoryText.ConID == "Con_58" && HaveSense == true)
+                {
+                    ChoiceUI.SetChoiceText("Cho_59,Cho_61");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_58" && HaveSense == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_59,Cho_60");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_59" && HaveDetection == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_62,Cho_63");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_55" && HaveDog == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_53,Cho_54");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_56" && HaveDog == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_55,Cho_56");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_57" && HaveDog == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_57,Cho_58");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_63" && HaveDetection == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_62,Cho_69");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_68" && HaveSight == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_76,Cho_77");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else if (Curdata.StoryText.ConID == "Con_84" && HaveDog == false)
+                {
+                    ChoiceUI.SetChoiceText("Cho_81,Cho_82");
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                else
+                {
+                    ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
+                    ChoiceUI.SetButton();
+                    yield return WaitChoiceSelect();
+                    SText = "";
+                    scrollRect.verticalNormalizedPosition = 1f;
+                    yield return TypingEffect(resultText);
+                }
+                yield return new WaitForSeconds(1f);
+                ConIDnum++;
+                break;
+            }
         }
 
     }
 
     IEnumerator Ending()
     {
-        var EndingData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+        SText = "";
+
+        if (HaveClue == true)
+        {
+            var EndingData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                          .Where(x => x.TextCondition.Time == "6"); // 엔딩 텍스트 가져오기
 
-        yield break;
-    }
+            foreach (var CurData in EndingData)
+            {
 
+                IsChoiced = false;
+                yield return TypingEffect(CurData.StoryText.DialogList); // 본문 출력
+
+                yield return new WaitForSeconds(0.5f);
+
+                ChoiceUI.SetChoiceText(CurData.StoryText.LinkedChoiceID); // 선택지 출력
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+            }
+        }
+        else
+        {
+            var EndingData = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
+                         .Where(x => x.TextCondition.Time == "6" && x.TextCondition.ConID >= 90); // 엔딩 텍스트 가져오기
+
+            foreach (var CurData in EndingData)
+            {
+
+                IsChoiced = false;
+                yield return TypingEffect(CurData.StoryText.DialogList); // 본문 출력
+
+                yield return new WaitForSeconds(0.5f);
+
+                ChoiceUI.SetChoiceText(CurData.StoryText.LinkedChoiceID); // 선택지 출력
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+            }
+        }
+        yield return new WaitForSeconds(2f);
+    }
     IEnumerator WaitMapSelect()
     {
         while (!GameStat.IsMapChoiced)// 맵을 선택하기 전까지 다음 텍스트를 불러오지 않음
@@ -335,4 +558,5 @@ public class TextController : MonoBehaviour
     {
         StoryText.text = "";
     }
+
 }

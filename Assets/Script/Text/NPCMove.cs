@@ -17,8 +17,8 @@ public class NPCMove
 
     public void SetMoving()
     {
-        DollPos = new List<string>() { "광장" };
-        RangerPos = new List<string>() { "광장" };
+        DollPos = new List<string>() { };
+        RangerPos = new List<string>() { };
 
         int a = UnityEngine.Random.Range(0, 2);
 
@@ -34,6 +34,7 @@ public class NPCMove
         DollPos.Add("관람차");
         DollPos.Add("매점");
         DollPos.Add("광장");
+        DollPos.Add("광장");
 
         RangerPos.Add("익스트림 어트렉션"); // 관리인 위치 설정
         int b = UnityEngine.Random.Range(0, 2);
@@ -45,6 +46,7 @@ public class NPCMove
 
         RangerPos.Add("익스트림 어트렉션");
         RangerPos.Add("광장");
+        RangerPos.Add("광장");
     }
 
     public void Setting2()
@@ -52,6 +54,7 @@ public class NPCMove
         RangerPos.Add("매점"); // 관리인 위치 설정
         RangerPos.Add("관람차");
         RangerPos.Add("매점");
+        RangerPos.Add("광장");
         RangerPos.Add("광장");
 
         DollPos.Add("익스트림 어트렉션"); // 인형탈 알바 위치 설정
@@ -63,6 +66,7 @@ public class NPCMove
             DollPos.Add("롤러코스터");
 
         DollPos.Add("익스트림 어트렉션");
+        DollPos.Add("광장");
         DollPos.Add("광장");
     }
 }

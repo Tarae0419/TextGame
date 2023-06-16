@@ -62,9 +62,4 @@ public class BGMManager : MonoBehaviour
         ButtonClickSource.Play();
 
     }
-
-    public void SetBackgroundUI()
-    {
-
-    }
 }

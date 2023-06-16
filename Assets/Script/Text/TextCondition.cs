@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextCondition
 {
-    public string ConID { get; set; }
+    public int ConID { get; set; }
 
     public string Time { get; set; }
 

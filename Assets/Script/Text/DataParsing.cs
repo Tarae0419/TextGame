@@ -31,28 +31,36 @@ public class DataParsing : MonoBehaviour
 
     public void Parsing()
     {
-        using (var Condition = new StreamReader("D:\\P1 notebook\\P1\\Assets\\Resources\\TextCondition.csv"))
+        string ConditionPath = Path.Combine(Application.dataPath, "Resources/TextCondition.csv");
+
+        using (var Condition = new StreamReader(ConditionPath))
         using (var csv = new CsvReader(Condition, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<TextCondition>();
             DM.TextCondition = records.ToList();
         }
 
-        using (var Text = new StreamReader("D:\\P1 notebook\\P1\\Assets\\Resources\\Contents.csv"))
+        string ContentsPath = Path.Combine(Application.dataPath, "Resources/Contents.csv");
+
+        using (var Text = new StreamReader(ContentsPath))
         using (var csv = new CsvReader(Text, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<StoryText>();
             DM.StoryText = records.ToList();
         }
 
-        using (var Choice = new StreamReader("D:\\P1 notebook\\P1\\Assets\\Resources\\Choice.csv"))
+        string ChoicePath = Path.Combine(Application.dataPath, "Resources/Choice.csv");
+
+        using (var Choice = new StreamReader(ChoicePath))
         using (var csv = new CsvReader(Choice, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<ChoiceText>();
             DM.ChoiceText = records.ToList();
         }
 
-        using (var Result = new StreamReader("D:\\P1 notebook\\P1\\Assets\\Resources\\Result.csv"))
+        string ResultPath = Path.Combine(Application.dataPath, "Resources/Result.csv");
+
+        using (var Result = new StreamReader(ResultPath))
         using (var csv = new CsvReader(Result, CultureInfo.InvariantCulture))
         {
             var records = csv.GetRecords<ResultText>();

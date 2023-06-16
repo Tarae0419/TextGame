@@ -28,7 +28,6 @@ public class Option : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(PlayerPrefs.GetInt("FontSize"));
         ResolutionData = new ResolutionData();
 
         BGMManager.BGMSource.volume = BGMScrollbar.value;

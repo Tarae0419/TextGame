@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
             bold = "<b>점심</b>";
             textComponent.text = text.Replace("점심", bold);
         }
-        else if(GameStat.CurTime == "5")
+        else if(GameStat.CurTime == "4")
         {
             text = "놀이공원에 저녁이 찾아왔습니다.";
             bold = "<b>저녁</b>";
@@ -165,13 +165,7 @@ public class UIManager : MonoBehaviour
     {
         PlaytimeText.text = GameStat.GetPlayTime();
         EndingCreditPanel.gameObject.SetActive(false);
-
-        if(GameStat.IsClear == true)
-            EndingData.gameObject.SetActive(true);
-        else
-        {
-            //실패 UI 띄우기
-        }
+        EndingData.gameObject.SetActive(true);
     }
 
     public void SetGiveUpPanel(int Select)
@@ -204,7 +198,6 @@ public class UIManager : MonoBehaviour
             Background.sprite = loadedImage;
             Sun.rectTransform.anchoredPosition = new Vector2(307, -108);
             Image aa = Background.GetComponent<Image>();
-
         }
     }
 
