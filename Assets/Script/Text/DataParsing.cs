@@ -31,7 +31,7 @@ public class DataParsing : MonoBehaviour
 
     public void Parsing()
     {
-        string ConditionPath = Path.Combine(Application.dataPath, "Resources/TextCondition.csv");
+        string ConditionPath = Path.Combine(Application.dataPath, "StreamingAssets/TextCondition.csv");
 
         using (var Condition = new StreamReader(ConditionPath))
         using (var csv = new CsvReader(Condition, CultureInfo.InvariantCulture))
@@ -40,7 +40,7 @@ public class DataParsing : MonoBehaviour
             DM.TextCondition = records.ToList();
         }
 
-        string ContentsPath = Path.Combine(Application.dataPath, "Resources/Contents.csv");
+        string ContentsPath = Path.Combine(Application.dataPath, "StreamingAssets/Contents.csv");
 
         using (var Text = new StreamReader(ContentsPath))
         using (var csv = new CsvReader(Text, CultureInfo.InvariantCulture))
@@ -49,7 +49,7 @@ public class DataParsing : MonoBehaviour
             DM.StoryText = records.ToList();
         }
 
-        string ChoicePath = Path.Combine(Application.dataPath, "Resources/Choice.csv");
+        string ChoicePath = Path.Combine(Application.dataPath, "StreamingAssets/Choice.csv");
 
         using (var Choice = new StreamReader(ChoicePath))
         using (var csv = new CsvReader(Choice, CultureInfo.InvariantCulture))
@@ -58,7 +58,7 @@ public class DataParsing : MonoBehaviour
             DM.ChoiceText = records.ToList();
         }
 
-        string ResultPath = Path.Combine(Application.dataPath, "Resources/Result.csv");
+        string ResultPath = Path.Combine(Application.dataPath, "StreamingAssets/Result.csv");
 
         using (var Result = new StreamReader(ResultPath))
         using (var csv = new CsvReader(Result, CultureInfo.InvariantCulture))

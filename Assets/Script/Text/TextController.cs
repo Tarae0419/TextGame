@@ -328,6 +328,7 @@ public class TextController : MonoBehaviour
         while(true)
         {
             Debug.Log(PreviousResult);
+            
 
             var Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                          .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == ConIDnum); // 전투 텍스트 가져오기
@@ -362,11 +363,11 @@ public class TextController : MonoBehaviour
                 Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                              .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 84);
             }
-            else if (PreviousResult == "Res_64")
+            /*else if (PreviousResult == "Res_64")
             {
                 Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 87);
-            }
+                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 87); //여기서 문제
+            }*/
             else if (PreviousResult == "Res_65")
             {
                 Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
@@ -390,7 +391,6 @@ public class TextController : MonoBehaviour
 
             foreach (var Curdata in Dinnerdata) // 저녁 사이클
             {
-                Debug.Log(Curdata.TextCondition.ConID);
                 ConIDnum = Curdata.TextCondition.ConID;
                 IsChoiced = false;
 
