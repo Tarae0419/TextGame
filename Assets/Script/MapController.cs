@@ -29,17 +29,17 @@ public class MapController : MonoBehaviour
     public string[] LunchMapName;
     public string[,] MapName;
 
-    Image button1Image;
-    Image button2Image;
-    Image button3Image;
-    Image button4Image;
-    Image button5Image;
-    Image button6Image;
-    Image button7Image;
-    Image button8Image;
-    Image button9Image;
-    Image button10Image;
-    Image button11Image;
+    public Image button1Image;
+    public Image button2Image;
+    public Image button3Image;
+    public Image button4Image;
+    public Image button5Image;
+    public Image button6Image;
+    public Image button7Image;
+    public Image button8Image;
+    public Image button9Image;
+    public Image button10Image;
+    public Image button11Image;
 
     private void Awake()
     {
@@ -49,18 +49,6 @@ public class MapController : MonoBehaviour
                                      { "1","바이킹","1","대로","기념품점","매표소"} };
         Mapcount = MapCountManager.GetComponent<MapCount>();
         GameStat = gameObject.GetComponent<GameStat>();
-
-        button1Image = Button1.GetComponent<Image>();
-        button2Image = Button2.GetComponent<Image>();
-        button3Image = Button3.GetComponent<Image>();
-        button4Image = Button4.GetComponent<Image>();
-        button5Image = Button5.GetComponent<Image>();
-        button6Image = Button6.GetComponent<Image>();
-        button7Image = Button7.GetComponent<Image>();
-        button8Image = Button8.GetComponent<Image>();
-        button9Image = Button9.GetComponent<Image>();
-        button10Image = Button10.GetComponent<Image>();
-        button11Image = Button11.GetComponent<Image>();
     }
 
     public void MapUpdate(string MapName) //맵 이동 버튼 클릭시 현재 맵 변경

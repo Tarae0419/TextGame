@@ -59,7 +59,7 @@ public class Option : MonoBehaviour
         var FontSize = PlayerPrefs.GetInt("FontSize");
         if (FontSize != 17 || FontSize != 18 || FontSize != 19 || FontSize != 20 || FontSize != 21 || FontSize != 22)
             FontSize = 17;
-        //PlayerPrefs.SetInt("FontSize", FontSize);
+        PlayerPrefs.SetInt("FontSize", FontSize);
         TestText.fontSize = FontSize;
 
 
