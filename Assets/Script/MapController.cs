@@ -9,17 +9,17 @@ public class MapController : MonoBehaviour
 {
     public GameObject MapPanel;
     public GameObject MapCountManager;
-    public Button Button1;
-    public Button Button2;
-    public Button Button3;
-    public Button Button4;
-    public Button Button5;
-    public Button Button6;
-    public Button Button7;
-    public Button Button8;
-    public Button Button9;
-    public Button Button10;
-    public Button Button11;
+    public GameObject Button1;
+    public GameObject Button2;
+    public GameObject Button3;
+    public GameObject Button4;
+    public GameObject Button5;
+    public GameObject Button6;
+    public GameObject Button7;
+    public GameObject Button8;
+    public GameObject Button9;
+    public GameObject Button10;
+    public GameObject Button11;
     public CharacterData PlayerData;
     public GameStat GameStat;
     public MapCount Mapcount;
@@ -101,17 +101,17 @@ public class MapController : MonoBehaviour
         {    
              switch(a)
             {
-                case "매표소": Button1.enabled = true; button1Image.color = new Color(1, 1, 1, 0f); break;
-                case "기념품점": Button2.enabled = true; button2Image.color = new Color(1, 1, 1, 0f); break;
-                case "대로": Button3.enabled = true; button3Image.color = new Color(1, 1, 1, 0f); break;
-                case "광장": Button4.enabled = true; button4Image.color = new Color(1, 1, 1, 0f); break;
-                case "매점": Button5.enabled = true; button5Image.color = new Color(1, 1, 1, 0f); break;
-                case "회전목마": Button6.enabled = true; button6Image.color = new Color(1, 1, 1, 0f); break;
-                case "관람차": Button7.enabled = true; button7Image.color = new Color(1, 1, 1, 0f); break;
-                case "익스트림 어트렉션": Button8.enabled = true; button8Image.color = new Color(1, 1, 1, 0f); break;
-                case "롤러코스터": Button9.enabled = true; button9Image.color = new Color(1, 1, 1, 0f); break;
-                case "바이킹": Button10.enabled = true; button10Image.color = new Color(1, 1, 1, 0f); break;
-                case "거울의 미로": Button11.enabled = true; button11Image.color = new Color(1, 1, 1, 0f); break;
+                case "매표소": Button1.SetActive(true); button1Image.color = new Color(1, 1, 1, 0f); break;
+                case "기념품점": Button2.SetActive(true); button2Image.color = new Color(1, 1, 1, 0f); break;
+                case "대로": Button3.SetActive(true); button3Image.color = new Color(1, 1, 1, 0f); break;
+                case "광장": Button4.SetActive(true); button4Image.color = new Color(1, 1, 1, 0f); break;
+                case "매점": Button5.SetActive(true); button5Image.color = new Color(1, 1, 1, 0f); break;
+                case "회전목마":  Button6.SetActive(true); button6Image.color = new Color(1, 1, 1, 0f); break;
+                case "관람차": Button7.SetActive(true); button7Image.color = new Color(1, 1, 1, 0f); break;
+                case "익스트림 어트렉션": Button8.SetActive(true); button8Image.color = new Color(1, 1, 1, 0f); break;
+                case "롤러코스터": Button9.SetActive(true); button9Image.color = new Color(1, 1, 1, 0f); break;
+                case "바이킹": Button10.SetActive(true); button10Image.color = new Color(1, 1, 1, 0f); break;
+                case "거울의 미로": Button11.SetActive(true); button11Image.color = new Color(1, 1, 1, 0f); break;
                 case "1": break;                 
             }
         }
@@ -154,33 +154,33 @@ public class MapController : MonoBehaviour
     {
         switch (GameStat.CurPos)
         {
-            case "매표소": Button1.enabled = false ; break;
-            case "기념품점": Button2.enabled = false; break;
-            case "대로": Button3.enabled = false; break;
-            case "광장": Button4.enabled = false; break;
-            case "매점": Button5.enabled = false; break;
-            case "회전목마": Button6.enabled = false; break;
-            case "관람차": Button7.enabled = false; break;
-            case "익스트림 어트렉션": Button8.enabled = false; break;
-            case "롤러코스터": Button9.enabled = false; break;
-            case "바이킹": Button10.enabled = false; break;
-            case "거울의 미로": Button11.enabled = false; break;
+            case "매표소": Button1.SetActive(false); break;
+            case "기념품점": Button2.SetActive(false); break;
+            case "대로": Button3.SetActive(false); break;
+            case "광장": Button4.SetActive(false); break;
+            case "매점": Button5.SetActive(false); break;
+            case "회전목마": Button6.SetActive(false); break;
+            case "관람차": Button7.SetActive(false); break;
+            case "익스트림 어트렉션": Button8.SetActive(false); break;
+            case "롤러코스터": Button9.SetActive(false); break;
+            case "바이킹": Button10.SetActive(false); break;
+            case "거울의 미로": Button11.SetActive(false); break;
         }
 
     }
     public void ResetButton()
     {
-        Button1.enabled = false;
-        Button2.enabled = false;
-        Button3.enabled = false;
-        Button4.enabled = false;
-        Button5.enabled = false;
-        Button6.enabled = false;
-        Button7.enabled = false;
-        Button8.enabled = false;
-        Button9.enabled = false;
-        Button10.enabled = false;
-        Button11.enabled = false;
+        Button1.SetActive(false);
+        Button2.SetActive(false);
+        Button3.SetActive(false);
+        Button4.SetActive(false);
+        Button5.SetActive(false);
+        Button6.SetActive(false);
+        Button7.SetActive(false);
+        Button8.SetActive(false);
+        Button9.SetActive(false);
+        Button10.SetActive(false);
+        Button11.SetActive(false);
 
         button1Image.color = new Color(1, 1, 1, 1f);
         button2Image.color = new Color(1, 1, 1, 1f);

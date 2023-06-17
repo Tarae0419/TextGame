@@ -36,7 +36,7 @@ public class TextController : MonoBehaviour
     private void Awake()
     {
         GameData = GameObject.Find("TextData").GetComponent<DataManager>();
-        Typingspeed = 0.02f;
+        Typingspeed = 0.03f;
 
     }
     public void Start()
