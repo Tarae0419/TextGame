@@ -49,6 +49,15 @@ public class DataParsing : MonoBehaviour
             DM.StoryText = records.ToList();
         }
 
+        string EveningPath = Path.Combine(Application.dataPath, "StreamingAssets/Evening.csv");
+
+        using (var Evening = new StreamReader(EveningPath))
+        using (var csv = new CsvReader(Evening, CultureInfo.InvariantCulture))
+        {
+            var records = csv.GetRecords<EveningText>();
+            DM.EveningText = records.ToList();
+        }
+
         string ChoicePath = Path.Combine(Application.dataPath, "StreamingAssets/Choice.csv");
 
         using (var Choice = new StreamReader(ChoicePath))

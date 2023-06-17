@@ -57,6 +57,9 @@ public class Option : MonoBehaviour
     public void SetFont()
     {
         var FontSize = PlayerPrefs.GetInt("FontSize");
+        if (FontSize != 17 || FontSize != 18 || FontSize != 19 || FontSize != 20 || FontSize != 21 || FontSize != 22)
+            FontSize = 17;
+        //PlayerPrefs.SetInt("FontSize", FontSize);
         TestText.fontSize = FontSize;
 
 
@@ -98,7 +101,7 @@ public class Option : MonoBehaviour
 
     public void SetOptionDropdown()
     {
-        FontOptions = new List<string> { "17", "18", "19", "20", "21", "22", "23"};
+        FontOptions = new List<string> { "17", "18", "19", "20", "21", "22"};
         fontSizeDropdown.ClearOptions();
         fontSizeDropdown.AddOptions(FontOptions);
     }

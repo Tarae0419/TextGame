@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public List<TextCondition> TextCondition { get; set; }
+    public List<EveningText> EveningText { get; set; }
 
     public List<StoryText> StoryText { get; set; }
 

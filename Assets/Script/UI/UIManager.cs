@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
     private float UITime;
     public TextMeshProUGUI textComponent;
     public TextMeshProUGUI PlaytimeText;
+    public TextMeshProUGUI FirstCredit;
+    public TextMeshProUGUI SecondCredit;
+    public TextMeshProUGUI ThirdCredit;
     public GameStat GameStat;
 
     void Awake()
@@ -158,7 +161,32 @@ public class UIManager : MonoBehaviour
     public IEnumerator SetEndingCredit()
     {
         EndingCreditPanel.gameObject.SetActive(true);
+        yield return SetCreditFade();
         yield return new WaitForSeconds(3f);
+    }
+
+    public IEnumerator SetCreditFade()
+    {
+
+
+        float fadeIn1 = 0;
+        while (fadeIn1 < 1.0f)
+        {
+            fadeIn1 += 0.1f;
+            yield return new WaitForSeconds(0.1f);
+            FirstCredit.color = new Color(0, 0, 0, fadeIn1);
+            SecondCredit.color = new Color(0, 0, 0, fadeIn1);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        float fadeIn2 = 0;
+        while (fadeIn2 < 1.0f)
+        {
+            fadeIn2 += 0.1f;
+            yield return new WaitForSeconds(0.1f);
+            ThirdCredit.color = new Color(0, 0, 0, fadeIn2);
+        }
     }
 
     public void EndingResult()
@@ -176,7 +204,7 @@ public class UIManager : MonoBehaviour
             GiveUpPanel.gameObject.SetActive(true);
     }
 
-    public void SetOptionPane(int Select)
+    public void SetOptionPanel(int Select)
     {
         if (Select == 0)
             OptionPanel.gameObject.SetActive(false);

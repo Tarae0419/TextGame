@@ -36,9 +36,7 @@ public class TextController : MonoBehaviour
     private void Awake()
     {
         GameData = GameObject.Find("TextData").GetComponent<DataManager>();
-        Typingspeed = 0.000001f;
-        HaveClue = true;
-
+        Typingspeed = 0.02f;
 
     }
     public void Start()
@@ -78,19 +76,19 @@ public class TextController : MonoBehaviour
     
     IEnumerator GameStart() //시작 함수
     {
-        //BGMManager.BGMSource.Stop();
-        //yield return StartFade();
-        //yield return Morning();
-        //ClearText();
-        //BGMManager.BGMSource.Stop();
-        //yield return LunchBeginning();
-        //yield return LunchMiddle();
-        //ClearText();
+        BGMManager.BGMSource.Stop();
+        yield return StartFade();
+        yield return Morning();
+        ClearText();
+        BGMManager.BGMSource.Stop();
+        yield return LunchBeginning();
+        yield return LunchMiddle();
+        ClearText();
         BGMManager.BGMSource.Stop();
         yield return Evening();
         yield return EveningMiddle();
         yield return Ending();
-        ClearText();   
+        ClearText();
         yield return UIManager.SetEndingCredit();
         UIManager.EndingResult();
     }
@@ -363,11 +361,11 @@ public class TextController : MonoBehaviour
                 Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
                              .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 84);
             }
-            /*else if (PreviousResult == "Res_64")
+            else if (PreviousResult == "Res_64")
             {
                 Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
-                             .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 87); //여기서 문제
-            }*/
+                             .Where(x => x.TextCondition.ConID == 87); //여기서 문제
+            }
             else if (PreviousResult == "Res_65")
             {
                 Dinnerdata = GameData.TextCondition.Join(GameData.StoryText, tc => tc.TextID, st => st.ConID, (tc, st) => new { TextCondition = tc, StoryText = st })
@@ -388,108 +386,105 @@ public class TextController : MonoBehaviour
                              .Where(x => x.TextCondition.Time == "5" && x.TextCondition.ConID == 55);
             }
 
+            var Curdata = Dinnerdata.First();
 
-            foreach (var Curdata in Dinnerdata) // 저녁 사이클
+            ConIDnum = Curdata.TextCondition.ConID;
+            IsChoiced = false;
+
+            yield return TypingEffect(Curdata.StoryText.DialogList);
+
+            if (Curdata.StoryText.ConID == "Con_58" && HaveSense == true)
             {
-                ConIDnum = Curdata.TextCondition.ConID;
-                IsChoiced = false;
-
-                yield return TypingEffect(Curdata.StoryText.DialogList);
-
-                if (Curdata.StoryText.ConID == "Con_58" && HaveSense == true)
-                {
-                    ChoiceUI.SetChoiceText("Cho_59,Cho_61");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_58" && HaveSense == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_59,Cho_60");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_59" && HaveDetection == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_62,Cho_63");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_55" && HaveDog == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_53,Cho_54");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_56" && HaveDog == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_55,Cho_56");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_57" && HaveDog == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_57,Cho_58");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_63" && HaveDetection == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_62,Cho_69");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_68" && HaveSight == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_76,Cho_77");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else if (Curdata.StoryText.ConID == "Con_84" && HaveDog == false)
-                {
-                    ChoiceUI.SetChoiceText("Cho_81,Cho_82");
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                else
-                {
-                    ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
-                    ChoiceUI.SetButton();
-                    yield return WaitChoiceSelect();
-                    SText = "";
-                    scrollRect.verticalNormalizedPosition = 1f;
-                    yield return TypingEffect(resultText);
-                }
-                yield return new WaitForSeconds(1f);
-                ConIDnum++;
-                break;
+                ChoiceUI.SetChoiceText("Cho_59,Cho_61");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
             }
+            else if (Curdata.StoryText.ConID == "Con_58" && HaveSense == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_59,Cho_60");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_59" && HaveDetection == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_62,Cho_63");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_55" && HaveDog == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_53,Cho_54");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_56" && HaveDog == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_55,Cho_56");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_57" && HaveDog == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_57,Cho_58");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_63" && HaveDetection == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_62,Cho_69");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_68" && HaveSight == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_76,Cho_77");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else if (Curdata.StoryText.ConID == "Con_84" && HaveDog == false)
+            {
+                ChoiceUI.SetChoiceText("Cho_81,Cho_82");
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            else
+            {
+                ChoiceUI.SetChoiceText(Curdata.StoryText.LinkedChoiceID); // 선택지 출력
+                ChoiceUI.SetButton();
+                yield return WaitChoiceSelect();
+                SText = "";
+                scrollRect.verticalNormalizedPosition = 1f;
+                yield return TypingEffect(resultText);
+            }
+            yield return new WaitForSeconds(1f);
+            ConIDnum++;            
         }
 
     }

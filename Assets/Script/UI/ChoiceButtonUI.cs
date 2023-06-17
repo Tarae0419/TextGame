@@ -82,6 +82,7 @@ public class ChoiceButtonUI : MonoBehaviour
             {
                 
                 TC.PreviousResult = LInkedRID;
+                Debug.Log("¹öÆ°" + TC.PreviousResult);
                 TC.ResultText(LInkedRID);
                 if (LInkedRID == "Res_33" || LInkedRID == "Res_37" || LInkedRID == "Res_40")
                     TC.HaveClue = true;
